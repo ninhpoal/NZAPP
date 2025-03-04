@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Dự án - Hệ thống Quản lý Dự án</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Flatpickr for Date Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-6 text-blue-800">Hệ thống Quản lý Dự án</h1>
+
+        <!-- Search Bar for Projects -->
+        <div class="mb-6">
+            <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4 mb-4">
+                <div class="relative w-full md:w-80">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                    <input type="text" id="searchInput"
+                        class="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                        placeholder="Tìm kiếm dự án...">
+                </div>
+                <button id="searchButton"
+                    class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full md:w-auto">
+                    Tìm kiếm
+                </button>
+                <button id="advancedFilterButton"
+                    class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full md:w-auto">
+                    <i class="fas fa-filter mr-1"></i> Bộ lọc
+                </button>
+                <div class="w-full md:w-auto flex items-center space-x-2">
+                    <label for="limitSelect" class="text-sm font-medium text-gray-700">Hiển thị:</label>
+                    <select id="limitSelect"
+                        class="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 text-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50" selected>50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Advanced Filter Panel -->
+            <div id="advancedFilter" class="bg-white rounded-lg shadow-md p-4 mb-4 hidden">
+                <h3 class="font-semibold text-lg mb-3">Bộ lọc nâng cao</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Khu vực -->
+                    <div>
+                        <label for="khuVucFilter" class="block mb-2 text-sm font-medium text-gray-700">Khu vực</label>
+                        <select id="khuVucFilter"
+                            class="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-sm">
+                            <option value="">Tất cả</option>
+                            <!-- Danh sách khu vực sẽ được thêm bằng JavaScript -->
+                        </select>
+                    </div>
+
+                    <!-- Trạng thái -->
+                    <div>
+                        <label for="trangThaiFilter" class="block mb-2 text-sm font-medium text-gray-700">Trạng
+                            thái</label>
+                        <select id="trangThaiFilter"
+                            class="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-sm">
+                            <option value="">Tất cả</option>
+                            <!-- Danh sách trạng thái sẽ được thêm bằng JavaScript -->
+                        </select>
+                    </div>
+
+                    <!-- POP -->
+                    <div>
+                        <label for="popFilter" class="block mb-2 text-sm font-medium text-gray-700">POP</label>
+                        <input type="text" id="popFilter"
+                            class="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-sm"
+                            placeholder="Nhập POP...">
+                    </div>
+
+                    <!-- Mã Kế Hoạch -->
+                    <div>
+                        <label for="maKeHoachFilter" class="block mb-2 text-sm font-medium text-gray-700">Mã Kế
+                            Hoạch</label>
+                        <input type="text" id="maKeHoachFilter"
+                            class="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-sm"
+                            placeholder="Nhập mã kế hoạch...">
+                    </div>
+
+                    <!-- Từ ngày -->
+                    <div>
+                        <label for="tuNgayFilter" class="block mb-2 text-sm font-medium text-gray-700">Từ ngày</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i class="fas fa-calendar text-gray-400"></i>
+                            </div>
+                            <input type="text" id="tuNgayFilter"
+                                class="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 text-sm datepicker"
+                                placeholder="DD/MM/YYYY">
+                        </div>
+                    </div>
+
+                    <!-- Đến ngày -->
+                    <div>
+                        <label for="denNgayFilter" class="block mb-2 text-sm font-medium text-gray-700">Đến ngày</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i class="fas fa-calendar text-gray-400"></i>
+                            </div>
+                            <input type="text" id="denNgayFilter"
+                                class="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 text-sm datepicker"
+                                placeholder="DD/MM/YYYY">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-4 space-x-2">
+                    <button id="resetFilterButton"
+                        class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <i class="fas fa-undo mr-1"></i> Xóa bộ lọc
+                    </button>
+                    <button id="applyFilterButton"
+                        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <i class="fas fa-check mr-1"></i> Áp dụng
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Filters Tags -->
+            <div id="activeFilters" class="flex flex-wrap gap-2 mb-4 hidden">
+                <!-- Filter tags will be added here dynamically -->
+            </div>
+        </div>
+
+        <!-- Danh sách Dự án -->
+        <div class="bg-white rounded-lg shadow-md">
+            <div class="p-4 border-b border-gray-200 font-semibold text-lg">
+                <span>Danh sách Dự án</span>
+            </div>
+            <div class="p-4">
+                <div id="duanLoading" class="flex justify-center items-center h-48">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500" id="duanTable" style="display: none;">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Mã Kế Hoạch</th>
+                                <th scope="col" class="px-6 py-3">POP</th>
+                                <th scope="col" class="px-6 py-3">Tên Công Trình</th>
+                                <th scope="col" class="px-6 py-3">Khu Vực</th>
+                                <th scope="col" class="px-6 py-3">Trạng Thái</th>
+                                <th scope="col" class="px-6 py-3">Ngày Nhận</th>
+                                <th scope="col" class="px-6 py-3">Deadline</th>
+                                <th scope="col" class="px-6 py-3">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="duanTableBody">
+                            <!-- Dữ liệu sẽ được thêm vào đây -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <nav class="flex justify-center items-center mt-4 space-x-1" aria-label="Pagination">
+                    <ul class="inline-flex items-center -space-x-px" id="pagination">
+                        <!-- Phân trang sẽ được thêm vào đây -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="fixed bottom-5 right-5 hidden flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 shadow-lg"
+        role="alert">
+        <div
+            class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="ml-3 text-sm font-medium" id="toastMessage"></div>
+        <button type="button"
+            class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 items-center justify-center"
+            onclick="hideToast()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <script>
+        // Cấu hình API
+        const API_BASE_URL = 'nzldtapi.vercel.app';
+        const API_TOKEN = 'AAAA';
+
+        // Dữ liệu danh sách trạng thái dự án
+        const danhSachTrangThai = [
+            "1/ Nhận Kế Hoạch",
+            "2/ Đang thi công",
+            "3/ Xự cố",
+            "4/ Chờ cắt chuyển",
+            "5/ Chờ thay đổi phương án",
+            "6/ Thiếu vật tư",
+            "7/ Đã thi công xong",
+            "8/ Đã hoàn thành BCHN",
+            "9/ Duyệt sản phẩm",
+            "10/ Nhập MBM - Hoàn công",
+            "11/ Hoàn thành hoàn công",
+            "12/ Đã nghiệm thu",
+            "13/ Đã xuất hóa đơn",
+            "14/ Đã thanh toán",
+            "15/ Hoàn thành"
+        ];
+
+        // Dữ liệu danh sách khu vực
+        const danhSachKhuVuc = [
+            "FPT-BDG",
+            "FPT-BPC",
+            "FPT-DNI",
+            "FPT-HCM",
+            "FPT-LAN",
+            "Intecom",
+            "Nhật Minh",
+            "NZ-HCM",
+            "PA VietNam",
+            "Sao Bắc Đẩu"
+        ];
+
+        // Tạo instance Axios với cấu hình chung
+        const api = axios.create({
+            baseURL: `https://${API_BASE_URL}`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_TOKEN}`
+            },
+            timeout: 10000 // 10 giây timeout
+        });
+
+        // Thêm interceptor để xử lý lỗi
+        api.interceptors.response.use(
+            response => response.data,
+            error => {
+                console.error('API error:', error);
+                const errorMessage = error.response?.data?.error || error.message || 'Đã xảy ra lỗi khi kết nối đến máy chủ';
+                showToast(errorMessage, 'error');
+                return Promise.reject(error);
+            }
+        );
+
+        // Biến toàn cục để lưu trữ trạng thái
+        let currentPage = 1;
+        let itemsPerPage = 50;
+        let totalPages = 0;
+        let currentSearchValue = '';
+        let currentFilters = {};
+
+        // Hàm điền các giá trị vào danh sách trạng thái và khu vực
+        function populateFilterDropdowns() {
+            const trangThaiSelect = document.getElementById('trangThaiFilter');
+            const khuVucSelect = document.getElementById('khuVucFilter');
+
+            // Điền danh sách trạng thái
+            danhSachTrangThai.forEach(trangThai => {
+                const option = document.createElement('option');
+                option.value = trangThai;
+                option.textContent = trangThai;
+                trangThaiSelect.appendChild(option);
+            });
+
+            // Điền danh sách khu vực
+            danhSachKhuVuc.forEach(khuVuc => {
+                const option = document.createElement('option');
+                option.value = khuVuc;
+                option.textContent = khuVuc;
+                khuVucSelect.appendChild(option);
+            });
+        }
+
+        // Khởi tạo các date pickers
+        document.addEventListener('DOMContentLoaded', function () {
+            // Điền các danh sách
+            populateFilterDropdowns();
+
+            flatpickr(".datepicker", {
+                dateFormat: "d/m/Y",
+                locale: "vn",
+                allowInput: true,
+                disableMobile: true
+            });
+        });
+
+        // Hàm hiển thị thông báo toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+
+            // Thay đổi màu sắc dựa trên loại thông báo
+            if (type === 'error') {
+                toast.classList.remove('text-green-800', 'bg-green-50');
+                toast.classList.add('text-red-800', 'bg-red-50');
+                document.querySelector('#toast .inline-flex').classList.remove('text-green-500', 'bg-green-100');
+                document.querySelector('#toast .inline-flex').classList.add('text-red-500', 'bg-red-100');
+                document.querySelector('#toast .inline-flex i').classList.remove('fa-check');
+                document.querySelector('#toast .inline-flex i').classList.add('fa-exclamation-circle');
+            } else {
+                toast.classList.remove('text-red-800', 'bg-red-50');
+                toast.classList.add('text-green-800', 'bg-green-50');
+                document.querySelector('#toast .inline-flex').classList.remove('text-red-500', 'bg-red-100');
+                document.querySelector('#toast .inline-flex').classList.add('text-green-500', 'bg-green-100');
+                document.querySelector('#toast .inline-flex i').classList.remove('fa-exclamation-circle');
+                document.querySelector('#toast .inline-flex i').classList.add('fa-check');
+            }
+
+            toast.classList.remove('hidden');
+
+            // Tự động ẩn toast sau 3 giây
+            setTimeout(hideToast, 3000);
+        }
+
+        // Hàm ẩn thông báo toast
+        function hideToast() {
+            document.getElementById('toast').classList.add('hidden');
+        }
+
+        // Hàm định dạng ngày tháng
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('vi-VN');
+        }
+
+        // Hàm chuyển đổi định dạng ngày từ DD/MM/YYYY sang YYYY-MM-DD cho API
+        function formatDateForAPI(dateString) {
+            if (!dateString) return null;
+            const parts = dateString.split('/');
+            if (parts.length !== 3) return null;
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+        // Hàm tạo badge cho trạng thái dự án
+        function createStatusBadge(status) {
+            if (!status) return 'N/A';
+
+            let badgeClass = 'bg-gray-200 text-gray-800';
+
+            if (status.includes('Hoàn thành') || status.includes('15/')) {
+                badgeClass = 'bg-green-100 text-green-800';
+            } else if (status.includes('1/') || status.includes('Nhận Kế Hoạch')) {
+                badgeClass = 'bg-blue-100 text-blue-800';
+            } else if (status.includes('2/') || status.includes('Đang thi công')) {
+                badgeClass = 'bg-yellow-100 text-yellow-800';
+            } else if (status.includes('3/') || status.includes('Xự cố') || status.includes('Thiếu vật tư')) {
+                badgeClass = 'bg-red-100 text-red-800';
+            } else if (status.includes('Chờ')) {
+                badgeClass = 'bg-purple-100 text-purple-800';
+            } else if (status.includes('Duyệt') || status.includes('Nhập')) {
+                badgeClass = 'bg-blue-100 text-blue-800';
+            } else if (status.includes('nghiệm thu') || status.includes('hóa đơn') || status.includes('thanh toán')) {
+                badgeClass = 'bg-indigo-100 text-indigo-800';
+            }
+
+            return `<span class="px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeClass}">${status}</span>`;
+        }
+
+        // Hàm hiển thị các thẻ bộ lọc đang áp dụng
+        function updateActiveFilterTags() {
+            const activeFiltersContainer = document.getElementById('activeFilters');
+            activeFiltersContainer.innerHTML = '';
+
+            let hasActiveFilters = false;
+
+            // Tạo các thẻ cho từng bộ lọc
+            Object.entries(currentFilters).forEach(([key, value]) => {
+                if (!value) return;
+
+                hasActiveFilters = true;
+
+                let filterName = key;
+                switch (key) {
+                    case 'khuVuc': filterName = 'Khu vực'; break;
+                    case 'trangThaiDuAn': filterName = 'Trạng thái'; break;
+                    case 'pop': filterName = 'POP'; break;
+                    case 'maKeHoach': filterName = 'Mã kế hoạch'; break;
+                    case 'tuNgay': filterName = 'Từ ngày'; break;
+                    case 'denNgay': filterName = 'Đến ngày'; break;
+                }
+
+                const tag = document.createElement('div');
+                tag.className = 'bg-blue-100 text-blue-800 py-1 px-3 rounded-full text-xs font-medium flex items-center';
+                tag.innerHTML = `
+                    <span>${filterName}: ${value}</span>
+                    <button class="ml-2 text-blue-800 hover:text-blue-600" data-filter="${key}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                activeFiltersContainer.appendChild(tag);
+            });
+
+            if (currentSearchValue) {
+                hasActiveFilters = true;
+                const tag = document.createElement('div');
+                tag.className = 'bg-blue-100 text-blue-800 py-1 px-3 rounded-full text-xs font-medium flex items-center';
+                tag.innerHTML = `
+                    <span>Tìm kiếm: ${currentSearchValue}</span>
+                    <button class="ml-2 text-blue-800 hover:text-blue-600" data-filter="search">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                activeFiltersContainer.appendChild(tag);
+            }
+
+            // Thêm sự kiện cho các nút xóa thẻ
+            document.querySelectorAll('#activeFilters button').forEach(button => {
+                button.addEventListener('click', function () {
+                    const filterKey = this.getAttribute('data-filter');
+                    if (filterKey === 'search') {
+                        currentSearchValue = '';
+                        document.getElementById('searchInput').value = '';
+                    } else {
+                        currentFilters[filterKey] = '';
+                        const filterInput = document.getElementById(`${filterKey}Filter`);
+                        if (filterInput) filterInput.value = '';
+                    }
+
+                    updateActiveFilterTags();
+                    loadDuanList(1, itemsPerPage, currentSearchValue);
+                });
+            });
+
+            // Hiển thị hoặc ẩn container dựa trên việc có bộ lọc hay không
+            if (hasActiveFilters) {
+                activeFiltersContainer.classList.remove('hidden');
+            } else {
+                activeFiltersContainer.classList.add('hidden');
+            }
+        }
+
+        // Hàm tải danh sách dự án với cache
+        const duanCache = new Map();
+        async function loadDuanList(page = 1, limit = 50, search = '') {
+            document.getElementById('duanLoading').style.display = 'flex';
+            document.getElementById('duanTable').style.display = 'none';
+            document.getElementById('pagination').innerHTML = '';
+
+            currentPage = page;
+            itemsPerPage = limit;
+            currentSearchValue = search;
+
+            // Tạo key cho cache
+            let cacheKeyParts = [`duan_${page}_${limit}`];
+            if (search) cacheKeyParts.push(`search_${search}`);
+
+            Object.entries(currentFilters).forEach(([key, value]) => {
+                if (value) cacheKeyParts.push(`${key}_${value}`);
+            });
+
+            const cacheKey = cacheKeyParts.join('_');
+
+            try {
+                let data;
+
+                // Kiểm tra cache trước
+                if (duanCache.has(cacheKey)) {
+                    data = duanCache.get(cacheKey);
+                    console.log('Lấy dữ liệu từ cache:', cacheKey);
+                } else {
+                    // Gọi API nếu không có trong cache
+                    const params = { page, limit };
+
+                    // Thêm tham số tìm kiếm chung
+                    if (search) params.search = search;
+
+                    // Thêm các tham số lọc
+                    Object.entries(currentFilters).forEach(([key, value]) => {
+                        if (value) params[key] = value;
+                    });
+
+                    data = await api.get('/api/duan', { params });
+
+                    // Lưu vào cache với thời gian hết hạn 5 phút
+                    duanCache.set(cacheKey, data);
+                    setTimeout(() => duanCache.delete(cacheKey), 5 * 60 * 1000);
+                }
+
+                document.getElementById('duanLoading').style.display = 'none';
+                document.getElementById('duanTable').style.display = 'table';
+
+                if (data.success) {
+                    const tableBody = document.getElementById('duanTableBody');
+                    tableBody.innerHTML = '';
+
+                    if (data.data.length === 0) {
+                        tableBody.innerHTML = `
+                            <tr>
+                                <td colspan="8" class="px-6 py-4 text-center">
+                                    <div class="p-4 text-sm text-gray-700">
+                                        <i class="fas fa-info-circle mr-2"></i>
+                                        Không tìm thấy dự án nào phù hợp với điều kiện tìm kiếm.
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    } else {
+                        data.data.forEach(duan => {
+                            const row = document.createElement('tr');
+                            row.className = 'bg-white border-b hover:bg-gray-50';
+                            row.innerHTML = `
+                                <td class="px-6 py-4">${duan.MaKeHoach || 'N/A'}</td>
+                                <td class="px-6 py-4">${duan.POP || 'N/A'}</td>
+                                <td class="px-6 py-4">${duan.TenCongTrinh || 'N/A'}</td>
+                                <td class="px-6 py-4">${duan.KhuVuc || 'N/A'}</td>
+                                <td class="px-6 py-4">${createStatusBadge(duan.TrangThaiDuAn)}</td>
+                                <td class="px-6 py-4">${formatDate(duan.NgayNhan)}</td>
+                                <td class="px-6 py-4">${formatDate(duan.DeadlineKH)}</td>
+                                <td class="px-6 py-4">
+                                    <a href="detail.html?maKeHoach=${duan.MaKeHoach}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5">
+                                        <i class="fas fa-info-circle mr-1"></i>Chi tiết
+                                    </a>
+                                </td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+                    }
+
+                    // Tạo phân trang
+                    createPagination(data.pagination);
+
+                    showToast(`Đã tải ${data.data.length} dự án`);
+                } else {
+                    document.getElementById('duanTableBody').innerHTML = `
+                        <tr>
+                            <td colspan="8" class="px-6 py-4 text-center">
+                                <div class="bg-red-50 p-4 text-sm text-red-800 rounded-lg">
+                                    <i class="fas fa-exclamation-circle mr-2"></i>
+                                    Không thể tải dữ liệu: ${data.error || 'Lỗi không xác định'}
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('duanLoading').style.display = 'none';
+                document.getElementById('duanTable').style.display = 'table';
+                document.getElementById('duanTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="8" class="px-6 py-4 text-center">
+                            <div class="bg-red-50 p-4 text-sm text-red-800 rounded-lg">
+                                <i class="fas fa-exclamation-circle mr-2"></i>
+                                Lỗi kết nối đến máy chủ. Vui lòng thử lại sau.
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+        // Hàm tạo phân trang
+        function createPagination(pagination) {
+            if (!pagination) return;
+
+            const { total, page, limit, totalPages } = pagination;
+            currentPage = page;
+            itemsPerPage = limit;
+
+            const paginationElement = document.getElementById('pagination');
+            paginationElement.innerHTML = '';
+
+            // Nút Previous
+            const prevBtn = document.createElement('li');
+            prevBtn.innerHTML = `
+                <button class="flex items-center justify-center px-3 h-8 leading-tight ${page <= 1 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700'} border border-gray-300 rounded-l-lg" ${page <= 1 ? 'disabled' : ''} data-page="${page - 1}">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            `;
+            paginationElement.appendChild(prevBtn);
+
+            // Các nút số trang
+            const startPage = Math.max(1, page - 2);
+            const endPage = Math.min(totalPages, page + 2);
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageItem = document.createElement('li');
+                pageItem.innerHTML = `
+                    <button class="flex items-center justify-center px-3 h-8 leading-tight ${i === page ? 'text-blue-600 bg-blue-50 border-blue-300' : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700'} border border-gray-300" data-page="${i}">
+                        ${i}
+                    </button>
+                `;
+                paginationElement.appendChild(pageItem);
+            }
+
+            // Nút Next
+            const nextBtn = document.createElement('li');
+            nextBtn.innerHTML = `
+                <button class="flex items-center justify-center px-3 h-8 leading-tight ${page >= totalPages ? 'text-gray-300 cursor-not-allowed' : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700'} border border-gray-300 rounded-r-lg" ${page >= totalPages ? 'disabled' : ''} data-page="${page + 1}">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            `;
+            paginationElement.appendChild(nextBtn);
+
+            // Thêm sự kiện cho các nút phân trang
+            document.querySelectorAll('#pagination button:not([disabled])').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const pageNumber = parseInt(this.getAttribute('data-page'));
+                    if (pageNumber > 0 && pageNumber <= totalPages) {
+                        loadDuanList(pageNumber, itemsPerPage, currentSearchValue);
+                    }
+                });
+            });
+        }
+
+        // Thêm các sự kiện khi trang đã tải xong
+        document.addEventListener('DOMContentLoaded', function () {
+            // Khởi tạo đối tượng lưu trữ bộ lọc
+            currentFilters = {
+                khuVuc: '',
+                trangThaiDuAn: '',
+                pop: '',
+                maKeHoach: '',
+                tuNgay: '',
+                denNgay: ''
+            };
+
+            // Tải danh sách dự án ban đầu
+            loadDuanList(1, 50);
+
+            // Sự kiện cho nút tìm kiếm
+            document.getElementById('searchButton').addEventListener('click', function () {
+                const searchValue = document.getElementById('searchInput').value.trim();
+                currentSearchValue = searchValue;
+                updateActiveFilterTags();
+                loadDuanList(1, itemsPerPage, searchValue);
+            });
+
+            // Sự kiện khi Enter trên ô tìm kiếm
+            document.getElementById('searchInput').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    const searchValue = this.value.trim();
+                    currentSearchValue = searchValue;
+                    updateActiveFilterTags();
+                    loadDuanList(1, itemsPerPage, searchValue);
+                }
+            });
+
+            // Sự kiện thay đổi số lượng hiển thị
+            document.getElementById('limitSelect').addEventListener('change', function () {
+                itemsPerPage = parseInt(this.value);
+                loadDuanList(1, itemsPerPage, currentSearchValue);
+            });
+
+            // Thêm sự kiện debounced cho thanh tìm kiếm
+            let debounceTimeout;
+            document.getElementById('searchInput').addEventListener('input', function () {
+                clearTimeout(debounceTimeout);
+                const searchValue = this.value.trim();
+
+                debounceTimeout = setTimeout(() => {
+                    if (searchValue.length >= 3 || searchValue.length === 0) {
+                        currentSearchValue = searchValue;
+                        updateActiveFilterTags();
+                        loadDuanList(1, itemsPerPage, searchValue);
+                    }
+                }, 500); // Chờ 500ms sau khi người dùng ngừng gõ
+            });
+
+            // Sự kiện hiển thị/ẩn bộ lọc nâng cao
+            document.getElementById('advancedFilterButton').addEventListener('click', function () {
+                const filterPanel = document.getElementById('advancedFilter');
+                filterPanel.classList.toggle('hidden');
+            });
+
+            // Sự kiện áp dụng bộ lọc
+            document.getElementById('applyFilterButton').addEventListener('click', function () {
+                // Lấy các giá trị từ bộ lọc
+                currentFilters.khuVuc = document.getElementById('khuVucFilter').value;
+                currentFilters.trangThaiDuAn = document.getElementById('trangThaiFilter').value;
+                currentFilters.pop = document.getElementById('popFilter').value;
+                currentFilters.maKeHoach = document.getElementById('maKeHoachFilter').value;
+
+                // Xử lý ngày tháng
+                const tuNgay = document.getElementById('tuNgayFilter').value;
+                const denNgay = document.getElementById('denNgayFilter').value;
+
+                currentFilters.tuNgay = tuNgay ? formatDateForAPI(tuNgay) : '';
+                currentFilters.denNgay = denNgay ? formatDateForAPI(denNgay) : '';
+
+                // Cập nhật các thẻ bộ lọc
+                updateActiveFilterTags();
+
+                // Tải lại dữ liệu với bộ lọc mới
+                loadDuanList(1, itemsPerPage, currentSearchValue);
+
+                // Ẩn bộ lọc
+                document.getElementById('advancedFilter').classList.add('hidden');
+            });
+
+            // Sự kiện xóa bộ lọc
+            document.getElementById('resetFilterButton').addEventListener('click', function () {
+                // Đặt lại tất cả các trường bộ lọc
+                document.getElementById('khuVucFilter').value = '';
+                document.getElementById('trangThaiFilter').value = '';
+                document.getElementById('popFilter').value = '';
+                document.getElementById('maKeHoachFilter').value = '';
+                document.getElementById('tuNgayFilter').value = '';
+                document.getElementById('denNgayFilter').value = '';
+
+                // Đặt lại đối tượng bộ lọc
+                Object.keys(currentFilters).forEach(key => {
+                    currentFilters[key] = '';
+                });
+
+                // Cập nhật các thẻ bộ lọc
+                updateActiveFilterTags();
+
+                // Tải lại dữ liệu không có bộ lọc
+                loadDuanList(1, itemsPerPage, currentSearchValue);
+            });
+        });
+    </script>
+</body>
+
+</html>

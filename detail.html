@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết Dự án - Hệ thống Quản lý Dự án</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <div class="container mx-auto p-4">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-blue-800">Chi tiết Dự án</h1>
+            <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i>Quay lại danh sách
+            </a>
+        </div>
+
+        <div id="detailLoading" class="flex justify-center items-center h-48">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+
+        <div id="detailContent" class="hidden">
+            <!-- Thông tin dự án -->
+            <div class="bg-white rounded-lg shadow-md mb-6">
+                <div class="p-4 border-b border-gray-200 font-semibold text-lg bg-gradient-to-r from-blue-50 to-white">
+                    Thông tin Dự án: <span id="projectTitle" class="text-blue-700"></span>
+                </div>
+                <div class="p-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50 w-1/3">Mã Kế Hoạch:</td>
+                                        <td id="MaKeHoach" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">POP:</td>
+                                        <td id="POP" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Tên Công Trình:</td>
+                                        <td id="TenCongTrinh" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Địa Chỉ:</td>
+                                        <td id="DiaChiThiCong" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Khu Vực:</td>
+                                        <td id="KhuVuc" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Người Phụ Trách:</td>
+                                        <td id="NhanVienDuAnPhuTrach" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50 w-1/3">Ngày Nhận:</td>
+                                        <td id="NgayNhan" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Deadline:</td>
+                                        <td id="DeadlineKH" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Ngày Hoàn Thành:</td>
+                                        <td id="NgayThiCongXong" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Trạng Thái:</td>
+                                        <td id="TrangThaiDuAn" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Người Giao Việc:</td>
+                                        <td id="NguoiGiaoViec" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Giám Sát:</td>
+                                        <td id="GiamSat" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thống kê tóm tắt -->
+            <div id="summarySection" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center">
+                    <div class="rounded-full bg-blue-100 p-3 mr-4">
+                        <i class="fas fa-clipboard-check text-blue-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-blue-600">Báo cáo Giám sát</p>
+                        <p class="text-2xl font-semibold" id="totalBCGS">0</p>
+                    </div>
+                </div>
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center">
+                    <div class="rounded-full bg-green-100 p-3 mr-4">
+                        <i class="fas fa-tools text-green-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-green-600">Báo cáo Hàn nối</p>
+                        <p class="text-2xl font-semibold" id="totalBCHN">0</p>
+                    </div>
+                </div>
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 flex items-center">
+                    <div class="rounded-full bg-purple-100 p-3 mr-4">
+                        <i class="fas fa-toolbox text-purple-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-purple-600">Báo cáo Hàn nối Đệ</p>
+                        <p class="text-2xl font-semibold" id="totalBCHNDE">0</p>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Tabs cho các báo cáo -->
+          <div class="mb-4 border-b border-gray-200">
+            <ul class="flex flex-wrap -mb-px" id="reportTabs" role="tablist">
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 border-blue-600 rounded-t-lg active" id="bcgs-tab" data-tabs-target="#bcgs-content" type="button" role="tab" aria-controls="bcgs-content" aria-selected="true">
+                        <i class="fas fa-clipboard-check mr-2"></i>Báo cáo Giám sát
+                    </button>
+                </li>
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600" id="bchn-tab" data-tabs-target="#bchn-content" type="button" role="tab" aria-controls="bchn-content" aria-selected="false">
+                        <i class="fas fa-tools mr-2"></i>Báo cáo Hàn nối
+                    </button>
+                </li>
+                <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600" id="bchnde-tab" data-tabs-target="#bchnde-content" type="button" role="tab" aria-controls="bchnde-content" aria-selected="false">
+                        <i class="fas fa-toolbox mr-2"></i>Báo cáo Hàn nối Đệ
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div id="reportTabsContent">
+            <!-- Báo cáo Giám sát -->
+            <div class="block" id="bcgs-content" role="tabpanel" aria-labelledby="bcgs-tab">
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="p-4 border-b border-gray-200 font-semibold flex items-center">
+                        <i class="fas fa-clipboard-check mr-2 text-blue-600"></i>Báo cáo Giám sát
+                    </div>
+                    <div class="p-4">
+                        <div id="bcgsLoading" class="flex justify-center items-center h-24">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500" id="bcgsTable" style="display: none;">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">POP</th>
+                                        <th scope="col" class="px-6 py-3">Khu Vực</th>
+                                        <th scope="col" class="px-6 py-3">Tuyến Cáp</th>
+                                        <th scope="col" class="px-6 py-3">Điểm Đầu</th>
+                                        <th scope="col" class="px-6 py-3">Điểm Cuối</th>
+                                        <th scope="col" class="px-6 py-3">Loại Cáp</th>
+                                        <th scope="col" class="px-6 py-3">Số Mét TC</th>
+                                        <th scope="col" class="px-6 py-3">Đội Kéo</th>
+                                        <th scope="col" class="px-6 py-3">Đội Hàn</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bcgsTableBody">
+                                    <!-- Dữ liệu sẽ được thêm vào đây -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="bcgsNoData" class="bg-blue-50 p-4 rounded-lg text-sm text-blue-800" style="display: none;">
+                            <i class="fas fa-info-circle mr-2"></i>Không có dữ liệu báo cáo giám sát cho dự án này.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Báo cáo Hàn nối -->
+            <div class="hidden" id="bchn-content" role="tabpanel" aria-labelledby="bchn-tab">
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="p-4 border-b border-gray-200 font-semibold flex items-center">
+                        <i class="fas fa-tools mr-2 text-blue-600"></i>Báo cáo Hàn nối
+                    </div>
+                    <div class="p-4">
+                        <div id="bchnLoading" class="flex justify-center items-center h-24">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500" id="bchnTable" style="display: none;">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">Vị Trí</th>
+                                        <th scope="col" class="px-6 py-3">Số Lượng</th>
+                                        <th scope="col" class="px-6 py-3">Loại Sản Phẩm</th>
+                                        <th scope="col" class="px-6 py-3">Nhân Sự Tham Gia</th>
+                                        
+                                        <th scope="col" class="px-6 py-3">Thời gian</th>
+                                        <th scope="col" class="px-6 py-3">Trạng thái</th>
+                                        <th scope="col" class="px-6 py-3">Số Tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bchnTableBody">
+                                    <!-- Dữ liệu sẽ được thêm vào đây -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="bchnNoData" class="bg-blue-50 p-4 rounded-lg text-sm text-blue-800" style="display: none;">
+                            <i class="fas fa-info-circle mr-2"></i>Không có dữ liệu báo cáo hàn nối cho dự án này.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Báo cáo Hàn nối Đệ -->
+            <div class="hidden" id="bchnde-content" role="tabpanel" aria-labelledby="bchnde-tab">
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="p-4 border-b border-gray-200 font-semibold flex items-center">
+                        <i class="fas fa-toolbox mr-2 text-blue-600"></i>Báo cáo Hàn nối Đệ
+                    </div>
+                    <div class="p-4">
+                        <div id="bchndeLoading" class="flex justify-center items-center h-24">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500" id="bchndeTable" style="display: none;">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">POP</th>
+                                        <th scope="col" class="px-6 py-3">Khu Vực</th>
+                                        <th scope="col" class="px-6 py-3">Vị Trí</th>
+                                        <th scope="col" class="px-6 py-3">Số Lượng</th>
+                                        <th scope="col" class="px-6 py-3">Loại Sản Phẩm</th>
+                                        <th scope="col" class="px-6 py-3">Số Tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bchndeTableBody">
+                                    <!-- Dữ liệu sẽ được thêm vào đây -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="bchndeNoData" class="bg-blue-50 p-4 rounded-lg text-sm text-blue-800" style="display: none;">
+                            <i class="fas fa-info-circle mr-2"></i>Không có dữ liệu báo cáo hàn nối đệ cho dự án này.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="fixed bottom-5 right-5 hidden flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 shadow-lg" role="alert">
+    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg">
+        <i class="fas fa-check"></i>
+    </div>
+    <div class="ml-3 text-sm font-medium" id="toastMessage"></div>
+    <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 items-center justify-center" onclick="hideToast()">
+        <i class="fas fa-times"></i>
+    </button>
+</div>
+
+<script>
+    // Cấu hình API
+    const API_BASE_URL = 'nzldtapi.vercel.app';
+    const API_TOKEN = 'AAAA';
+
+    // Cấu hình phân trang và tìm kiếm
+    const PAGE_SIZE = 10; // Số mục trên mỗi trang
+    let currentPages = {
+        bcgs: 1,
+        bchn: 1,
+        bchnde: 1
+    };
+    let filteredData = {
+        bcgs: [],
+        bchn: [],
+        bchnde: []
+    };
+    let searchFilters = {
+        bcgs: '',
+        bchn: '',
+        bchnde: ''
+    };
+
+    // Tạo instance Axios với cấu hình chung
+    const api = axios.create({
+        baseURL: `https://${API_BASE_URL}`,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_TOKEN}`
+        },
+        timeout: 10000 // 10 giây timeout
+    });
+
+    // Thêm interceptor để xử lý lỗi
+    api.interceptors.response.use(
+        response => response.data,
+        error => {
+            console.error('API error:', error);
+            const errorMessage = error.response?.data?.error || error.message || 'Đã xảy ra lỗi khi kết nối đến máy chủ';
+            showToast(errorMessage, 'error');
+            return Promise.reject(error);
+        }
+    );
+
+    // Hàm hiển thị thông báo toast
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        toastMessage.textContent = message;
+        
+        // Thay đổi màu sắc dựa trên loại thông báo
+        if (type === 'error') {
+            toast.classList.remove('text-green-800', 'bg-green-50');
+            toast.classList.add('text-red-800', 'bg-red-50');
+            document.querySelector('#toast .inline-flex').classList.remove('text-green-500', 'bg-green-100');
+            document.querySelector('#toast .inline-flex').classList.add('text-red-500', 'bg-red-100');
+            document.querySelector('#toast .inline-flex i').classList.remove('fa-check');
+            document.querySelector('#toast .inline-flex i').classList.add('fa-exclamation-circle');
+        } else {
+            toast.classList.remove('text-red-800', 'bg-red-50');
+            toast.classList.add('text-green-800', 'bg-green-50');
+            document.querySelector('#toast .inline-flex').classList.remove('text-red-500', 'bg-red-100');
+            document.querySelector('#toast .inline-flex').classList.add('text-green-500', 'bg-green-100');
+            document.querySelector('#toast .inline-flex i').classList.remove('fa-exclamation-circle');
+            document.querySelector('#toast .inline-flex i').classList.add('fa-check');
+        }
+        
+        toast.classList.remove('hidden');
+        
+        // Tự động ẩn toast sau 3 giây
+        setTimeout(hideToast, 3000);
+    }
+
+    // Hàm ẩn thông báo toast
+    function hideToast() {
+        document.getElementById('toast').classList.add('hidden');
+    }
+
+    // Hàm định dạng ngày tháng
+    function formatDate(dateString) {
+        if (!dateString) return 'N/A';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('vi-VN');
+    }
+
+    // Hàm tạo badge cho trạng thái dự án
+    function createStatusBadge(status) {
+        if (!status) return 'N/A';
+
+        let badgeClass = 'bg-gray-200 text-gray-800';
+
+        if (status.includes('Hoàn thành')) {
+            badgeClass = 'bg-green-100 text-green-800';
+        } else if (status.includes('Mới')) {
+            badgeClass = 'bg-blue-100 text-blue-800';
+        } else if (status.includes('Đang')) {
+            badgeClass = 'bg-yellow-100 text-yellow-800';
+        } else if (status.includes('Chậm') || status.includes('Lỗi')) {
+            badgeClass = 'bg-red-100 text-red-800';
+        }
+
+        return `<span class="px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeClass}">${status}</span>`;
+    }
+
+    // Cache cho chi tiết dự án
+    const projectDetailCache = new Map();
+    
+    // Hàm tải chi tiết dự án
+    async function loadProjectDetail(maKeHoach) {
+        // Hiển thị spinner
+        document.getElementById('detailLoading').style.display = 'flex';
+        document.getElementById('detailContent').style.display = 'none';
+
+        try {
+            let data;
+            const cacheKey = `project_${maKeHoach}`;
+            
+            // Kiểm tra cache
+            if (projectDetailCache.has(cacheKey)) {
+                data = projectDetailCache.get(cacheKey);
+                console.log('Lấy chi tiết dự án từ cache:', cacheKey);
+            } else {
+                // Gọi API nếu không có trong cache
+                data = await api.get(`/api/duan/${maKeHoach}`);
+                
+                // Lưu vào cache với thời gian hết hạn 5 phút
+                projectDetailCache.set(cacheKey, data);
+                setTimeout(() => projectDetailCache.delete(cacheKey), 5 * 60 * 1000);
+            }
+
+            document.getElementById('detailLoading').style.display = 'none';
+            document.getElementById('detailContent').style.display = 'block';
+
+            if (data.success) {
+                // Lấy thông tin dự án từ cấu trúc đúng
+                const duan = data.data.duan;
+
+                // Cập nhật tiêu đề trang
+                document.title = `${duan.TenCongTrinh || 'Chi tiết dự án'} - Hệ thống Quản lý Dự án`;
+
+                // Cập nhật tiêu đề
+                document.getElementById('projectTitle').textContent = duan.TenCongTrinh || 'Không có tên';
+
+                // Cập nhật thông tin dự án
+                document.getElementById('MaKeHoach').textContent = duan.MaKeHoach || 'N/A';
+                document.getElementById('POP').textContent = duan.POP || 'N/A';
+                document.getElementById('TenCongTrinh').textContent = duan.TenCongTrinh || 'N/A';
+                document.getElementById('DiaChiThiCong').textContent = duan.DiaChiThiCong || 'N/A';
+                document.getElementById('KhuVuc').textContent = duan.KhuVuc || 'N/A';
+                document.getElementById('NgayNhan').textContent = formatDate(duan.NgayNhan);
+                document.getElementById('DeadlineKH').textContent = formatDate(duan.DeadlineKH);
+                document.getElementById('NgayThiCongXong').textContent = formatDate(duan.NgayThiCongXong);
+                document.getElementById('TrangThaiDuAn').innerHTML = createStatusBadge(duan.TrangThaiDuAn);
+                document.getElementById('NguoiGiaoViec').textContent = duan.NguoiGiaoViec || 'N/A';
+                document.getElementById('GiamSat').textContent = duan.GiamSat || 'N/A';
+                document.getElementById('NhanVienDuAnPhuTrach').textContent = duan.NhanVienDuAnPhuTrach || 'N/A';
+                
+                // Cập nhật tổng hợp số lượng báo cáo
+                if (data.data.summary) {
+                    const summary = data.data.summary;
+                    document.getElementById('totalBCGS').textContent = summary.totalBCGS || 0;
+                    document.getElementById('totalBCHN').textContent = summary.totalBCHN || 0;
+                    document.getElementById('totalBCHNDE').textContent = summary.totalBCHNDE || 0;
+                }
+
+                // Sử dụng dữ liệu bcgs có sẵn từ API
+                renderBCGS(data.data.bcgs || []);
+                
+                // Sử dụng dữ liệu bchn có sẵn từ API
+                renderBCHN(data.data.bchn || []);
+                
+                // Sử dụng dữ liệu bchnde có sẵn từ API
+                renderBCHNDE(data.data.bchnde || []);
+                
+                // Hiển thị thông báo
+                showToast(`Đã tải thông tin dự án ${duan.MaKeHoach}`);
+            } else {
+                showToast(`Không thể tải thông tin dự án: ${data.error || 'Lỗi không xác định'}`, 'error');
+            }
+        } catch (error) {
+            document.getElementById('detailLoading').style.display = 'none';
+            showToast('Lỗi kết nối đến máy chủ. Vui lòng thử lại sau.', 'error');
+        }
+    }
+    
+    // Lấy kích thước trang từ select
+    function getPageSize(tableType) {
+        const selectElement = document.getElementById(`${tableType}PageSize`);
+        return selectElement ? parseInt(selectElement.value) : PAGE_SIZE;
+    }
+
+    // Lọc dữ liệu BCGS theo tiêu chí tìm kiếm
+   // Lọc dữ liệu BCGS theo tiêu chí tìm kiếm
+   function getFilteredBCGS() {
+        const searchTerm = searchFilters.bcgs.toLowerCase();
+        if (!searchTerm) return filteredData.bcgs;
+        
+        return filteredData.bcgs.filter(item => {
+            return (
+                (item.POP && item.POP.toLowerCase().includes(searchTerm)) ||
+                (item.KhuVuc && item.KhuVuc.toLowerCase().includes(searchTerm)) ||
+                (item.TuyenCap && item.TuyenCap.toLowerCase().includes(searchTerm)) ||
+                (item.DiemDau && item.DiemDau.toLowerCase().includes(searchTerm)) ||
+                (item.DiemCuoi && item.DiemCuoi.toLowerCase().includes(searchTerm)) ||
+                (item.LoaiCap && item.LoaiCap.toLowerCase().includes(searchTerm)) ||
+                (item.DoiKeo && item.DoiKeo.toLowerCase().includes(searchTerm)) ||
+                (item.DoiHan && item.DoiHan.toLowerCase().includes(searchTerm))
+            );
+        });
+    }
+
+    // Lọc dữ liệu BCHN theo tiêu chí tìm kiếm
+    function getFilteredBCHN() {
+        const searchTerm = searchFilters.bchn.toLowerCase();
+        if (!searchTerm) return filteredData.bchn;
+        
+        return filteredData.bchn.filter(item => {
+            return (
+                (item.POP && item.POP.toLowerCase().includes(searchTerm)) ||
+                (item.KhuVuc && item.KhuVuc.toLowerCase().includes(searchTerm)) ||
+                (item.ViTri && item.ViTri.toLowerCase().includes(searchTerm)) ||
+                (item.LoaiSanPham && item.LoaiSanPham.toLowerCase().includes(searchTerm)) ||
+                (item.NhanSuThamGia && item.NhanSuThamGia.toLowerCase().includes(searchTerm))
+            );
+        });
+    }
+
+    // Lọc dữ liệu BCHNDE theo tiêu chí tìm kiếm
+    function getFilteredBCHNDE() {
+        const searchTerm = searchFilters.bchnde.toLowerCase();
+        if (!searchTerm) return filteredData.bchnde;
+        
+        return filteredData.bchnde.filter(item => {
+            return (
+                (item.POP && item.POP.toLowerCase().includes(searchTerm)) ||
+                (item.KhuVuc && item.KhuVuc.toLowerCase().includes(searchTerm)) ||
+                (item.ViTri && item.ViTri.toLowerCase().includes(searchTerm)) ||
+                (item.LoaiSanPham && item.LoaiSanPham.toLowerCase().includes(searchTerm)) ||
+                (item.NhanSuThamGia && item.NhanSuThamGia.toLowerCase().includes(searchTerm))
+            );
+        });
+    }
+
+    // Lọc và hiển thị dữ liệu BCGS theo trang
+    function filterAndDisplayBCGS() {
+        const filtered = getFilteredBCGS();
+        const pageSize = getPageSize('bcgs');
+        const totalPages = Math.ceil(filtered.length / pageSize);
+        
+        // Cập nhật thông tin phân trang
+        document.getElementById('bcgsCurrentPage').textContent = currentPages.bcgs;
+        document.getElementById('bcgsTotalPages').textContent = totalPages || 1;
+        
+        // Vô hiệu hóa nút trang trước/tiếp theo nếu cần
+        document.getElementById('bcgsPrevPage').disabled = currentPages.bcgs <= 1;
+        document.getElementById('bcgsNextPage').disabled = currentPages.bcgs >= totalPages;
+        
+        // Cập nhật UI cho nút bị vô hiệu hóa
+        if (currentPages.bcgs <= 1) {
+            document.getElementById('bcgsPrevPage').classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+            document.getElementById('bcgsPrevPage').classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        
+        if (currentPages.bcgs >= totalPages) {
+            document.getElementById('bcgsNextPage').classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+            document.getElementById('bcgsNextPage').classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        
+        // Tính chỉ số bắt đầu và kết thúc cho trang hiện tại
+        const startIndex = (currentPages.bcgs - 1) * pageSize;
+        const endIndex = Math.min(startIndex + pageSize, filtered.length);
+        
+        // Lấy dữ liệu cho trang hiện tại
+        const pageData = filtered.slice(startIndex, endIndex);
+        
+        // Hiển thị dữ liệu
+        const tableBody = document.getElementById('bcgsTableBody');
+        tableBody.innerHTML = '';
+        
+        if (pageData.length === 0) {
+            const emptyRow = document.createElement('tr');
+            emptyRow.innerHTML = `<td colspan="9" class="px-6 py-4 text-center text-gray-500">Không tìm thấy dữ liệu phù hợp</td>`;
+            tableBody.appendChild(emptyRow);
+        } else {
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="px-6 py-4">${item.POP || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.KhuVuc || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.TuyenCap || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.DiemDau || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.DiemCuoi || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.LoaiCap || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.SoMetTC || '0'}</td>
+                    <td class="px-6 py-4">${item.DoiKeo || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.DoiHan || 'N/A'}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    }
+
+    // Lọc và hiển thị dữ liệu BCHN theo trang
+    function filterAndDisplayBCHN() {
+        const filtered = getFilteredBCHN();
+        const pageSize = getPageSize('bchn');
+        const totalPages = Math.ceil(filtered.length / pageSize);
+        
+        // Cập nhật thông tin phân trang
+        document.getElementById('bchnCurrentPage').textContent = currentPages.bchn;
+        document.getElementById('bchnTotalPages').textContent = totalPages || 1;
+        
+        // Vô hiệu hóa nút trang trước/tiếp theo nếu cần
+        document.getElementById('bchnPrevPage').disabled = currentPages.bchn <= 1;
+        document.getElementById('bchnNextPage').disabled = currentPages.bchn >= totalPages;
+        
+        // Cập nhật UI cho nút bị vô hiệu hóa
+        if (currentPages.bchn <= 1) {
+            document.getElementById('bchnPrevPage').classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+            document.getElementById('bchnPrevPage').classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        
+        if (currentPages.bchn >= totalPages) {
+            document.getElementById('bchnNextPage').classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+            document.getElementById('bchnNextPage').classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        
+        // Tính chỉ số bắt đầu và kết thúc cho trang hiện tại
+        const startIndex = (currentPages.bchn - 1) * pageSize;
+        const endIndex = Math.min(startIndex + pageSize, filtered.length);
+        
+        // Lấy dữ liệu cho trang hiện tại
+        const pageData = filtered.slice(startIndex, endIndex);
+        
+        // Hiển thị dữ liệu
+        const tableBody = document.getElementById('bchnTableBody');
+        tableBody.innerHTML = '';
+        
+        if (pageData.length === 0) {
+            const emptyRow = document.createElement('tr');
+            emptyRow.innerHTML = `<td colspan="7" class="px-6 py-4 text-center text-gray-500">Không tìm thấy dữ liệu phù hợp</td>`;
+            tableBody.appendChild(emptyRow);
+        } else {
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="px-6 py-4">${item.ViTri || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.SoLuong || '0'}</td>
+                    <td class="px-6 py-4">${item.LoaiSanPham || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.NhanSuThamGia || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.ThoiGian || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.TrangThai  || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.SoTien ? new Intl.NumberFormat('vi-VN').format(item.SoTien) : '0'} VNĐ</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    }
+
+    // Lọc và hiển thị dữ liệu BCHNDE theo trang
+    function filterAndDisplayBCHNDE() {
+        const filtered = getFilteredBCHNDE();
+        const pageSize = getPageSize('bchnde');
+        const totalPages = Math.ceil(filtered.length / pageSize);
+        
+        // Cập nhật thông tin phân trang
+        document.getElementById('bchndeCurrentPage').textContent = currentPages.bchnde;
+        document.getElementById('bchndeTotalPages').textContent = totalPages || 1;
+        
+        // Vô hiệu hóa nút trang trước/tiếp theo nếu cần
+        document.getElementById('bchndePrevPage').disabled = currentPages.bchnde <= 1;
+        document.getElementById('bchndeNextPage').disabled = currentPages.bchnde >= totalPages;
+        
+        // Cập nhật UI cho nút bị vô hiệu hóa
+        if (currentPages.bchnde <= 1) {
+            document.getElementById('bchndePrevPage').classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+            document.getElementById('bchndePrevPage').classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        
+        if (currentPages.bchnde >= totalPages) {
+            document.getElementById('bchndeNextPage').classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+            document.getElementById('bchndeNextPage').classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        
+        // Tính chỉ số bắt đầu và kết thúc cho trang hiện tại
+        const startIndex = (currentPages.bchnde - 1) * pageSize;
+        const endIndex = Math.min(startIndex + pageSize, filtered.length);
+        
+        // Lấy dữ liệu cho trang hiện tại
+        const pageData = filtered.slice(startIndex, endIndex);
+        
+        // Hiển thị dữ liệu
+        const tableBody = document.getElementById('bchndeTableBody');
+        tableBody.innerHTML = '';
+        
+        if (pageData.length === 0) {
+            const emptyRow = document.createElement('tr');
+            emptyRow.innerHTML = `<td colspan="6" class="px-6 py-4 text-center text-gray-500">Không tìm thấy dữ liệu phù hợp</td>`;
+            tableBody.appendChild(emptyRow);
+        } else {
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="px-6 py-4">${item.POP || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.KhuVuc || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.ViTri || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.SoLuong || '0'}</td>
+                    <td class="px-6 py-4">${item.LoaiSanPham || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.SoTien ? new Intl.NumberFormat('vi-VN').format(item.SoTien) : '0'} VNĐ</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    }
+
+    // Hàm tạo điều khiển tìm kiếm và phân trang cho BCGS
+    function renderBCGSControls() {
+        // Kiểm tra nếu đã tồn tại, không tạo lại
+        if (document.getElementById('bcgsControls')) return;
+        
+        const controlsHTML = `
+            <div id="bcgsControls" class="flex flex-col md:flex-row justify-between items-center mb-4">
+                <div class="flex items-center mb-3 md:mb-0 w-full md:w-auto">
+                    <div class="relative">
+                        <input type="text" id="bcgsSearch" placeholder="Tìm kiếm..." 
+                               class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-64">
+                        <span class="absolute left-3 top-2.5 text-gray-400">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <button id="bcgsSearchBtn" class="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search mr-1"></i> Tìm
+                    </button>
+                </div>
+                <div class="flex items-center w-full md:w-auto justify-between md:justify-end">
+                    <div class="flex items-center mr-4">
+                        <span class="text-sm text-gray-600 mr-2">Hiển thị:</span>
+                        <select id="bcgsPageSize" class="border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center">
+                        <button id="bcgsPrevPage" class="px-3 py-1 bg-gray-200 text-gray-700 rounded-l-lg hover:bg-gray-300 focus:outline-none">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div id="bcgsPagination" class="px-4 py-1 bg-white border-t border-b border-gray-300 text-sm">
+                            <span id="bcgsCurrentPage">1</span>/<span id="bcgsTotalPages">1</span>
+                        </div>
+                        <button id="bcgsNextPage" class="px-3 py-1 bg-gray-200 text-gray-700 rounded-r-lg hover:bg-gray-300 focus:outline-none">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Thêm vào trước bảng
+        const tableContainer = document.getElementById('bcgsTable').parentNode;
+        tableContainer.insertAdjacentHTML('beforebegin', controlsHTML);
+        
+        // Thêm các sự kiện
+        document.getElementById('bcgsSearchBtn').addEventListener('click', () => {
+            searchFilters.bcgs = document.getElementById('bcgsSearch').value.toLowerCase();
+            currentPages.bcgs = 1; // Reset về trang 1 khi tìm kiếm
+            filterAndDisplayBCGS();
+        });
+        
+        document.getElementById('bcgsSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchFilters.bcgs = document.getElementById('bcgsSearch').value.toLowerCase();
+                currentPages.bcgs = 1;
+                filterAndDisplayBCGS();
+            }
+        });
+        
+        document.getElementById('bcgsPageSize').addEventListener('change', () => {
+            currentPages.bcgs = 1; // Reset về trang 1 khi thay đổi kích thước trang
+            filterAndDisplayBCGS();
+        });
+        
+        document.getElementById('bcgsPrevPage').addEventListener('click', () => {
+            if (currentPages.bcgs > 1) {
+                currentPages.bcgs--;
+                filterAndDisplayBCGS();
+            }
+        });
+        
+        document.getElementById('bcgsNextPage').addEventListener('click', () => {
+            const totalPages = Math.ceil(getFilteredBCGS().length / getPageSize('bcgs'));
+            if (currentPages.bcgs < totalPages) {
+                currentPages.bcgs++;
+                filterAndDisplayBCGS();
+            }
+        });
+    }
+
+    // Hàm tạo điều khiển tìm kiếm và phân trang cho BCHN
+    function renderBCHNControls() {
+        // Kiểm tra nếu đã tồn tại, không tạo lại
+        if (document.getElementById('bchnControls')) return;
+        
+        const controlsHTML = `
+            <div id="bchnControls" class="flex flex-col md:flex-row justify-between items-center mb-4">
+                <div class="flex items-center mb-3 md:mb-0 w-full md:w-auto">
+                    <div class="relative">
+                        <input type="text" id="bchnSearch" placeholder="Tìm kiếm..." 
+                               class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-64">
+                        <span class="absolute left-3 top-2.5 text-gray-400">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <button id="bchnSearchBtn" class="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search mr-1"></i> Tìm
+                    </button>
+                </div>
+                <div class="flex items-center w-full md:w-auto justify-between md:justify-end">
+                    <div class="flex items-center mr-4">
+                        <span class="text-sm text-gray-600 mr-2">Hiển thị:</span>
+                        <select id="bchnPageSize" class="border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center">
+                        <button id="bchnPrevPage" class="px-3 py-1 bg-gray-200 text-gray-700 rounded-l-lg hover:bg-gray-300 focus:outline-none">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div id="bchnPagination" class="px-4 py-1 bg-white border-t border-b border-gray-300 text-sm">
+                            <span id="bchnCurrentPage">1</span>/<span id="bchnTotalPages">1</span>
+                        </div>
+                        <button id="bchnNextPage" class="px-3 py-1 bg-gray-200 text-gray-700 rounded-r-lg hover:bg-gray-300 focus:outline-none">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Thêm vào trước bảng
+        const tableContainer = document.getElementById('bchnTable').parentNode;
+        tableContainer.insertAdjacentHTML('beforebegin', controlsHTML);
+        
+        // Thêm các sự kiện
+        document.getElementById('bchnSearchBtn').addEventListener('click', () => {
+            searchFilters.bchn = document.getElementById('bchnSearch').value.toLowerCase();
+            currentPages.bchn = 1;
+            filterAndDisplayBCHN();
+        });
+        
+        document.getElementById('bchnSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchFilters.bchn = document.getElementById('bchnSearch').value.toLowerCase();
+                currentPages.bchn = 1;
+                filterAndDisplayBCHN();
+            }
+        });
+        
+        document.getElementById('bchnPageSize').addEventListener('change', () => {
+            currentPages.bchn = 1;
+            filterAndDisplayBCHN();
+        });
+        
+        document.getElementById('bchnPrevPage').addEventListener('click', () => {
+            if (currentPages.bchn > 1) {
+                currentPages.bchn--;
+                filterAndDisplayBCHN();
+            }
+        });
+        
+        document.getElementById('bchnNextPage').addEventListener('click', () => {
+            const totalPages = Math.ceil(getFilteredBCHN().length / getPageSize('bchn'));
+            if (currentPages.bchn < totalPages) {
+                currentPages.bchn++;
+                filterAndDisplayBCHN();
+            }
+        });
+    }
+
+    // Hàm tạo điều khiển tìm kiếm và phân trang cho BCHNDE
+    function renderBCHNDEControls() {
+        // Kiểm tra nếu đã tồn tại, không tạo lại
+        if (document.getElementById('bchndeControls')) return;
+        
+        const controlsHTML = `
+            <div id="bchndeControls" class="flex flex-col md:flex-row justify-between items-center mb-4">
+                <div class="flex items-center mb-3 md:mb-0 w-full md:w-auto">
+                    <div class="relative">
+                        <input type="text" id="bchndeSearch" placeholder="Tìm kiếm..." 
+                               class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-64">
+                        <span class="absolute left-3 top-2.5 text-gray-400">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <button id="bchndeSearchBtn" class="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search mr-1"></i> Tìm
+                    </button>
+                </div>
+                <div class="flex items-center w-full md:w-auto justify-between md:justify-end">
+                    <div class="flex items-center mr-4">
+                        <span class="text-sm text-gray-600 mr-2">Hiển thị:</span>
+                        <select id="bchndePageSize" class="border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center">
+                        <button id="bchndePrevPage" class="px-3 py-1 bg-gray-200 text-gray-700 rounded-l-lg hover:bg-gray-300 focus:outline-none">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div id="bchndePagination" class="px-4 py-1 bg-white border-t border-b border-gray-300 text-sm">
+                            <span id="bchndeCurrentPage">1</span>/<span id="bchndeTotalPages">1</span>
+                        </div>
+                        <button id="bchndeNextPage" class="px-3 py-1 bg-gray-200 text-gray-700 rounded-r-lg hover:bg-gray-300 focus:outline-none">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Thêm vào trước bảng
+        const tableContainer = document.getElementById('bchndeTable').parentNode;
+        tableContainer.insertAdjacentHTML('beforebegin', controlsHTML);
+        
+        // Thêm các sự kiện
+        document.getElementById('bchndeSearchBtn').addEventListener('click', () => {
+            searchFilters.bchnde = document.getElementById('bchndeSearch').value.toLowerCase();
+            currentPages.bchnde = 1;
+            filterAndDisplayBCHNDE();
+        });
+        
+        document.getElementById('bchndeSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchFilters.bchnde = document.getElementById('bchndeSearch').value.toLowerCase();
+                currentPages.bchnde = 1;
+                filterAndDisplayBCHNDE();
+            }
+        });
+        
+        document.getElementById('bchndePageSize').addEventListener('change', () => {
+            currentPages.bchnde = 1;
+            filterAndDisplayBCHNDE();
+        });
+        
+        document.getElementById('bchndePrevPage').addEventListener('click', () => {
+            if (currentPages.bchnde > 1) {
+                currentPages.bchnde--;
+                filterAndDisplayBCHNDE();
+            }
+        });
+        
+        document.getElementById('bchndeNextPage').addEventListener('click', () => {
+            const totalPages = Math.ceil(getFilteredBCHNDE().length / getPageSize('bchnde'));
+            if (currentPages.bchnde < totalPages) {
+                currentPages.bchnde++;
+                filterAndDisplayBCHNDE();
+            }
+        });
+    }
+
+    // Hàm hiển thị báo cáo giám sát từ dữ liệu (với phân trang và tìm kiếm)
+    function renderBCGS(data) {
+        document.getElementById('bcgsLoading').style.display = 'none';
+        
+        // Lưu toàn bộ dữ liệu
+        filteredData.bcgs = [...data];
+        
+        if (data && data.length > 0) {
+            document.getElementById('bcgsTable').style.display = 'table';
+            document.getElementById('bcgsNoData').style.display = 'none';
+            
+            // Render thanh tìm kiếm và điều khiển phân trang
+            renderBCGSControls();
+            
+            // Lọc và hiển thị dữ liệu
+            filterAndDisplayBCGS();
+        } else {
+            document.getElementById('bcgsTable').style.display = 'none';
+            document.getElementById('bcgsNoData').style.display = 'block';
+        }
+    }
+
+    // Hàm hiển thị báo cáo hàn nối từ dữ liệu (với phân trang và tìm kiếm)
+    function renderBCHN(data) {
+        document.getElementById('bchnLoading').style.display = 'none';
+        
+        // Lưu toàn bộ dữ liệu
+        filteredData.bchn = [...data];
+        
+        if (data && data.length > 0) {
+            document.getElementById('bchnTable').style.display = 'table';
+            document.getElementById('bchnNoData').style.display = 'none';
+            
+            // Render thanh tìm kiếm và điều khiển phân trang
+            renderBCHNControls();
+            
+            // Lọc và hiển thị dữ liệu
+            filterAndDisplayBCHN();
+        } else {
+            document.getElementById('bchnTable').style.display = 'none';
+            document.getElementById('bchnNoData').style.display = 'block';
+        }
+    }
+
+    // Hàm hiển thị báo cáo hàn nối đệ từ dữ liệu (với phân trang và tìm kiếm)
+    // Hàm hiển thị báo cáo hàn nối đệ từ dữ liệu (với phân trang và tìm kiếm)
+    function renderBCHNDE(data) {
+        document.getElementById('bchndeLoading').style.display = 'none';
+        
+        // Lưu toàn bộ dữ liệu
+        filteredData.bchnde = [...data];
+        
+        if (data && data.length > 0) {
+            document.getElementById('bchndeTable').style.display = 'table';
+            document.getElementById('bchndeNoData').style.display = 'none';
+            
+            // Render thanh tìm kiếm và điều khiển phân trang
+            renderBCHNDEControls();
+            
+            // Lọc và hiển thị dữ liệu
+            filterAndDisplayBCHNDE();
+        } else {
+            document.getElementById('bchndeTable').style.display = 'none';
+            document.getElementById('bchndeNoData').style.display = 'block';
+        }
+    }
+
+    // Thiết lập tabs cho báo cáo
+    function setupReportTabs() {
+        document.querySelectorAll('#reportTabs [role="tab"]').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Xóa active khỏi tất cả các tab
+                document.querySelectorAll('#reportTabs [role="tab"]').forEach(t => {
+                    t.classList.remove('border-blue-600', 'text-blue-600', 'active');
+                    t.classList.add('border-transparent');
+                    t.setAttribute('aria-selected', 'false');
+                });
+
+                // Ẩn tất cả các nội dung tab
+                document.querySelectorAll('#reportTabsContent [role="tabpanel"]').forEach(panel => {
+                    panel.classList.add('hidden');
+                    panel.classList.remove('block');
+                });
+
+                // Kích hoạt tab hiện tại
+                this.classList.remove('border-transparent');
+                this.classList.add('border-blue-600', 'text-blue-600', 'active');
+                this.setAttribute('aria-selected', 'true');
+
+                // Hiển thị nội dung tab tương ứng
+                const tabTarget = this.getAttribute('data-tabs-target');
+                const targetPanel = document.querySelector(tabTarget);
+                if (targetPanel) {
+                    targetPanel.classList.remove('hidden');
+                    targetPanel.classList.add('block');
+                }
+            });
+        });
+    }
+
+    // Lấy tham số từ URL
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // Thêm các sự kiện khi trang đã tải xong
+    document.addEventListener('DOMContentLoaded', function() {
+        // Thiết lập tabs cho báo cáo
+        setupReportTabs();
+
+        // Lấy mã kế hoạch từ URL
+        const maKeHoach = getParameterByName('maKeHoach');
+        
+        if (maKeHoach) {
+            // Tải chi tiết dự án
+            loadProjectDetail(maKeHoach);
+        } else {
+            // Hiển thị thông báo lỗi nếu không có mã kế hoạch
+            document.getElementById('detailLoading').style.display = 'none';
+            const container = document.querySelector('.container');
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-3xl font-bold text-blue-800">Chi tiết Dự án</h1>
+                    <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i>Quay lại danh sách
+                    </a>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg">
+                    <div class="flex items-center mb-3">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-exclamation-circle text-red-500 text-xl"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-lg font-medium text-red-800">Lỗi</h3>
+                            <div class="mt-2 text-red-700">
+                                <p>Không tìm thấy mã kế hoạch. Vui lòng quay lại trang danh sách và chọn một dự án.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="index.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <i class="fas fa-list mr-2"></i>Xem danh sách dự án
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+    });
+</script>
+</body>
+</html>
