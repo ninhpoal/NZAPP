@@ -11,10 +11,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Grid.js -->
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans">
-    <div class="container mx-auto p-4">
+    <div class=" mx-auto p-4">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold text-blue-800">Chi tiết Dự án</h1>
             <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center">
@@ -38,28 +41,44 @@
                             <table class="min-w-full divide-y divide-gray-200">
                                 <tbody class="divide-y divide-gray-200">
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50 w-1/3">Mã Kế Hoạch:</td>
-                                        <td id="MaKeHoach" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50 w-1/3">
+                                            Mã Kế Hoạch:</td>
+                                        <td id="MaKeHoach" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">POP:</td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">
+                                            POP:</td>
                                         <td id="POP" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
                                     </tr>
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Tên Công Trình:</td>
-                                        <td id="TenCongTrinh" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">
+                                            Tên Công Trình:</td>
+                                        <td id="TenCongTrinh" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Địa Chỉ:</td>
-                                        <td id="DiaChiThiCong" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">
+                                            Địa Chỉ:</td>
+                                        <td id="DiaChiThiCong"
+                                            class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
                                     </tr>
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Khu Vực:</td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">
+                                            Khu Vực:</td>
                                         <td id="KhuVuc" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
                                     </tr>
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Người Phụ Trách:</td>
-                                        <td id="NhanVienDuAnPhuTrach" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">
+                                            Người Phụ Trách:</td>
+                                        <td id="NhanVienDuAnPhuTrach"
+                                            class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -68,27 +87,44 @@
                             <table class="min-w-full divide-y divide-gray-200">
                                 <tbody class="divide-y divide-gray-200">
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50 w-1/3">Ngày Nhận:</td>
-                                        <td id="NgayNhan" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50 w-1/3">
+                                            Ngày Nhận:</td>
+                                        <td id="NgayNhan" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Deadline:</td>
-                                        <td id="DeadlineKH" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">
+                                            Deadline:</td>
+                                        <td id="DeadlineKH" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Ngày Hoàn Thành:</td>
-                                        <td id="NgayThiCongXong" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">
+                                            Ngày Hoàn Thành:</td>
+                                        <td id="NgayThiCongXong"
+                                            class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
                                     </tr>
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Trạng Thái:</td>
-                                        <td id="TrangThaiDuAn" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">
+                                            Trạng Thái:</td>
+                                        <td id="TrangThaiDuAn"
+                                            class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
                                     </tr>
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Người Giao Việc:</td>
-                                        <td id="NguoiGiaoViec" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">
+                                            Người Giao Việc:</td>
+                                        <td id="NguoiGiaoViec"
+                                            class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
                                     </tr>
                                     <tr>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">Giám Sát:</td>
+                                        <td
+                                            class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700 bg-gray-50">
+                                            Giám Sát:</td>
                                         <td id="GiamSat" class="px-4 py-2 whitespace-nowrap text-sm text-gray-900"></td>
                                     </tr>
                                 </tbody>
@@ -129,439 +165,415 @@
                 </div>
             </div>
 
-          <!-- Tabs cho các báo cáo -->
-          <div class="mb-4 border-b border-gray-200">
-            <ul class="flex flex-wrap -mb-px" id="reportTabs" role="tablist">
-                <li class="mr-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 border-blue-600 rounded-t-lg active" id="bcgs-tab" data-tabs-target="#bcgs-content" type="button" role="tab" aria-controls="bcgs-content" aria-selected="true">
-                        <i class="fas fa-clipboard-check mr-2"></i>Báo cáo Giám sát
-                    </button>
-                </li>
-                <li class="mr-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600" id="bchn-tab" data-tabs-target="#bchn-content" type="button" role="tab" aria-controls="bchn-content" aria-selected="false">
-                        <i class="fas fa-tools mr-2"></i>Báo cáo Hàn nối
-                    </button>
-                </li>
-                <li class="mr-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600" id="bchnde-tab" data-tabs-target="#bchnde-content" type="button" role="tab" aria-controls="bchnde-content" aria-selected="false">
-                        <i class="fas fa-toolbox mr-2"></i>Báo cáo Hàn nối Đệ
-                    </button>
-                </li>
-            </ul>
-        </div>
+            <!-- Tabs cho các báo cáo -->
+            <div class="mb-4 border-b border-gray-200">
+                <ul class="flex flex-wrap -mb-px" id="reportTabs" role="tablist">
+                    <li class="mr-2" role="presentation">
+                        <button class="inline-block p-4 border-b-2 border-blue-600 rounded-t-lg active" id="bcgs-tab"
+                            data-tabs-target="#bcgs-content" type="button" role="tab" aria-controls="bcgs-content"
+                            aria-selected="true">
+                            <i class="fas fa-clipboard-check mr-2"></i>Báo cáo Giám sát
+                        </button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600"
+                            id="bchn-tab" data-tabs-target="#bchn-content" type="button" role="tab"
+                            aria-controls="bchn-content" aria-selected="false">
+                            <i class="fas fa-tools mr-2"></i>Báo cáo Hàn nối
+                        </button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600"
+                            id="bchnde-tab" data-tabs-target="#bchnde-content" type="button" role="tab"
+                            aria-controls="bchnde-content" aria-selected="false">
+                            <i class="fas fa-toolbox mr-2"></i>Báo cáo Hàn nối Chia lương
+                        </button>
+                    </li>
+                </ul>
+            </div>
 
-        <div id="reportTabsContent">
-            <!-- Báo cáo Giám sát -->
-            <div class="block" id="bcgs-content" role="tabpanel" aria-labelledby="bcgs-tab">
-                <div class="bg-white rounded-lg shadow-md">
-                    <div class="p-4 border-b border-gray-200 font-semibold flex items-center">
-                        <i class="fas fa-clipboard-check mr-2 text-blue-600"></i>Báo cáo Giám sát
-                    </div>
-                    <div class="p-4">
-                        <div id="bcgsLoading" class="flex justify-center items-center h-24">
-                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-sm text-left text-gray-500" id="bcgsTable" style="display: none;">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">POP</th>
-                                        <th scope="col" class="px-6 py-3">Khu Vực</th>
-                                        <th scope="col" class="px-6 py-3">Tuyến Cáp</th>
-                                        <th scope="col" class="px-6 py-3">Điểm Đầu</th>
-                                        <th scope="col" class="px-6 py-3">Điểm Cuối</th>
-                                        <th scope="col" class="px-6 py-3">Loại Cáp</th>
-                                        <th scope="col" class="px-6 py-3">Số Mét TC</th>
-                                        <th scope="col" class="px-6 py-3">Đội Kéo</th>
-                                        <th scope="col" class="px-6 py-3">Đội Hàn</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="bcgsTableBody">
-                                    <!-- Dữ liệu sẽ được thêm vào đây -->
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="bcgsNoData" class="bg-blue-50 p-4 rounded-lg text-sm text-blue-800" style="display: none;">
-                            <i class="fas fa-info-circle mr-2"></i>Không có dữ liệu báo cáo giám sát cho dự án này.
+            <div id="reportTabsContent">
+                <!-- Thay đổi div cho BCGS -->
+                <div id="bcgs-content" role="tabpanel" aria-labelledby="bcgs-tab" class="block">
+                    <div class="bg-white rounded-lg shadow-md">
+
+                        <div class="p-4">
+                            <div id="bcgsLoading" class="flex justify-center items-center h-24">
+                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                            </div>
+                            <div id="bcgsTable" style="display: none;"></div>
+                            <div id="bcgsNoData" class="bg-blue-50 p-4 rounded-lg text-sm text-blue-800"
+                                style="display: none;">
+                                <i class="fas fa-info-circle mr-2"></i>Không có dữ liệu báo cáo giám sát cho dự án này.
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Báo cáo Hàn nối -->
-            <div class="hidden" id="bchn-content" role="tabpanel" aria-labelledby="bchn-tab">
-                <div class="bg-white rounded-lg shadow-md">
-                    <div class="p-4 border-b border-gray-200 font-semibold flex items-center">
-                        <i class="fas fa-tools mr-2 text-blue-600"></i>Báo cáo Hàn nối
-                    </div>
-                    <div class="p-4">
-                        <div id="bchnLoading" class="flex justify-center items-center h-24">
-                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-sm text-left text-gray-500" id="bchnTable" style="display: none;">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">Vị Trí</th>
-                                        <th scope="col" class="px-6 py-3">Số Lượng</th>
-                                        <th scope="col" class="px-6 py-3">Loại Sản Phẩm</th>
-                                        <th scope="col" class="px-6 py-3">Nhân Sự Tham Gia</th>
-                                        
-                                        <th scope="col" class="px-6 py-3">Thời gian</th>
-                                        <th scope="col" class="px-6 py-3">Trạng thái</th>
-                                        <th scope="col" class="px-6 py-3">Số Tiền</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="bchnTableBody">
-                                    <!-- Dữ liệu sẽ được thêm vào đây -->
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="bchnNoData" class="bg-blue-50 p-4 rounded-lg text-sm text-blue-800" style="display: none;">
-                            <i class="fas fa-info-circle mr-2"></i>Không có dữ liệu báo cáo hàn nối cho dự án này.
+                <!-- Thay đổi div cho BCHN -->
+                <div id="bchn-content" role="tabpanel" aria-labelledby="bchn-tab" class="hidden">
+                    <div class="bg-white rounded-lg shadow-md">
+
+                        <div class="p-4">
+                            <div id="bchnLoading" class="flex justify-center items-center h-24">
+                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                            </div>
+                            <div id="bchnTable" style="display: none;"></div>
+                            <div id="bchnNoData" class="bg-blue-50 p-4 rounded-lg text-sm text-blue-800"
+                                style="display: none;">
+                                <i class="fas fa-info-circle mr-2"></i>Không có dữ liệu báo cáo hàn nối cho dự án này.
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Báo cáo Hàn nối Đệ -->
-            <div class="hidden" id="bchnde-content" role="tabpanel" aria-labelledby="bchnde-tab">
-                <div class="bg-white rounded-lg shadow-md">
-                    <div class="p-4 border-b border-gray-200 font-semibold flex items-center">
-                        <i class="fas fa-toolbox mr-2 text-blue-600"></i>Báo cáo Hàn nối Đệ
-                    </div>
-                    <div class="p-4">
-                        <div id="bchndeLoading" class="flex justify-center items-center h-24">
-                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-sm text-left text-gray-500" id="bchndeTable" style="display: none;">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">POP</th>
-                                        <th scope="col" class="px-6 py-3">Khu Vực</th>
-                                        <th scope="col" class="px-6 py-3">Vị Trí</th>
-                                        <th scope="col" class="px-6 py-3">Số Lượng</th>
-                                        <th scope="col" class="px-6 py-3">Loại Sản Phẩm</th>
-                                        <th scope="col" class="px-6 py-3">Số Tiền</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="bchndeTableBody">
-                                    <!-- Dữ liệu sẽ được thêm vào đây -->
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="bchndeNoData" class="bg-blue-50 p-4 rounded-lg text-sm text-blue-800" style="display: none;">
-                            <i class="fas fa-info-circle mr-2"></i>Không có dữ liệu báo cáo hàn nối đệ cho dự án này.
+                <!-- Thay đổi div cho BCHNDE -->
+                <div id="bchnde-content" role="tabpanel" aria-labelledby="bchnde-tab" class="hidden">
+                    <div class="bg-white rounded-lg shadow-md">
+
+                        <div class="p-4">
+                            <div id="bchndeLoading" class="flex justify-center items-center h-24">
+                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                            </div>
+                            <div id="bchndeTable" style="display: none;"></div>
+                            <div id="bchndeNoData" class="bg-blue-50 p-4 rounded-lg text-sm text-blue-800"
+                                style="display: none;">
+                                <i class="fas fa-info-circle mr-2"></i>Không có dữ liệu báo cáo hàn nối đệ cho dự án
+                                này.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Toast Notification -->
-<div id="toast" class="fixed bottom-5 right-5 hidden flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 shadow-lg" role="alert">
-    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg">
-        <i class="fas fa-check"></i>
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="fixed bottom-5 right-5 hidden flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 shadow-lg"
+        role="alert">
+        <div
+            class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="ml-3 text-sm font-medium" id="toastMessage"></div>
+        <button type="button"
+            class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 items-center justify-center"
+            onclick="hideToast()">
+            <i class="fas fa-times"></i>
+        </button>
     </div>
-    <div class="ml-3 text-sm font-medium" id="toastMessage"></div>
-    <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 items-center justify-center" onclick="hideToast()">
-        <i class="fas fa-times"></i>
-    </button>
-</div>
+    <!-- Modals cho chi tiết -->
+    <div id="detailModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div
+            class="relative top-20 mx-auto p-5 border w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 shadow-lg rounded-md bg-white">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="text-xl font-bold text-blue-800" id="modalTitle">Chi tiết</h3>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="modalContent" class="mt-4 max-h-[calc(100vh-200px)] overflow-y-auto">
+                <!-- Nội dung modal sẽ được thêm vào bằng JavaScript -->
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button id="closeModalBtn"
+                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                    <i class="fas fa-times mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Cấu hình API
+        const API_BASE_URL = 'nzldtapi.vercel.app';
+        const API_TOKEN = 'AAAA';
+        let bcgsGrid, bchnGrid, bchndeGrid;
+        // Cấu hình phân trang và tìm kiếm
+        const PAGE_SIZE = 10; // Số mục trên mỗi trang
+        let currentPages = {
+            bcgs: 1,
+            bchn: 1,
+            bchnde: 1
+        };
+        let filteredData = {
+            bcgs: [],
+            bchn: [],
+            bchnde: []
+        };
+        let searchFilters = {
+            bcgs: '',
+            bchn: '',
+            bchnde: ''
+        };
 
-<script>
-    // Cấu hình API
-    const API_BASE_URL = 'nzldtapi.vercel.app';
-    const API_TOKEN = 'AAAA';
+        // Tạo instance Axios với cấu hình chung
+        const api = axios.create({
+            baseURL: `https://${API_BASE_URL}`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_TOKEN}`
+            },
+            timeout: 10000 // 10 giây timeout
+        });
 
-    // Cấu hình phân trang và tìm kiếm
-    const PAGE_SIZE = 10; // Số mục trên mỗi trang
-    let currentPages = {
-        bcgs: 1,
-        bchn: 1,
-        bchnde: 1
-    };
-    let filteredData = {
-        bcgs: [],
-        bchn: [],
-        bchnde: []
-    };
-    let searchFilters = {
-        bcgs: '',
-        bchn: '',
-        bchnde: ''
-    };
+        // Thêm interceptor để xử lý lỗi
+        api.interceptors.response.use(
+            response => response.data,
+            error => {
+                console.error('API error:', error);
+                const errorMessage = error.response?.data?.error || error.message || 'Đã xảy ra lỗi khi kết nối đến máy chủ';
+                showToast(errorMessage, 'error');
+                return Promise.reject(error);
+            }
+        );
 
-    // Tạo instance Axios với cấu hình chung
-    const api = axios.create({
-        baseURL: `https://${API_BASE_URL}`,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${API_TOKEN}`
-        },
-        timeout: 10000 // 10 giây timeout
-    });
+        // Hàm hiển thị thông báo toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
 
-    // Thêm interceptor để xử lý lỗi
-    api.interceptors.response.use(
-        response => response.data,
-        error => {
-            console.error('API error:', error);
-            const errorMessage = error.response?.data?.error || error.message || 'Đã xảy ra lỗi khi kết nối đến máy chủ';
-            showToast(errorMessage, 'error');
-            return Promise.reject(error);
-        }
-    );
-
-    // Hàm hiển thị thông báo toast
-    function showToast(message, type = 'success') {
-        const toast = document.getElementById('toast');
-        const toastMessage = document.getElementById('toastMessage');
-        toastMessage.textContent = message;
-        
-        // Thay đổi màu sắc dựa trên loại thông báo
-        if (type === 'error') {
-            toast.classList.remove('text-green-800', 'bg-green-50');
-            toast.classList.add('text-red-800', 'bg-red-50');
-            document.querySelector('#toast .inline-flex').classList.remove('text-green-500', 'bg-green-100');
-            document.querySelector('#toast .inline-flex').classList.add('text-red-500', 'bg-red-100');
-            document.querySelector('#toast .inline-flex i').classList.remove('fa-check');
-            document.querySelector('#toast .inline-flex i').classList.add('fa-exclamation-circle');
-        } else {
-            toast.classList.remove('text-red-800', 'bg-red-50');
-            toast.classList.add('text-green-800', 'bg-green-50');
-            document.querySelector('#toast .inline-flex').classList.remove('text-red-500', 'bg-red-100');
-            document.querySelector('#toast .inline-flex').classList.add('text-green-500', 'bg-green-100');
-            document.querySelector('#toast .inline-flex i').classList.remove('fa-exclamation-circle');
-            document.querySelector('#toast .inline-flex i').classList.add('fa-check');
-        }
-        
-        toast.classList.remove('hidden');
-        
-        // Tự động ẩn toast sau 3 giây
-        setTimeout(hideToast, 3000);
-    }
-
-    // Hàm ẩn thông báo toast
-    function hideToast() {
-        document.getElementById('toast').classList.add('hidden');
-    }
-
-    // Hàm định dạng ngày tháng
-    function formatDate(dateString) {
-        if (!dateString) return 'N/A';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('vi-VN');
-    }
-
-    // Hàm tạo badge cho trạng thái dự án
-    function createStatusBadge(status) {
-        if (!status) return 'N/A';
-
-        let badgeClass = 'bg-gray-200 text-gray-800';
-
-        if (status.includes('Hoàn thành')) {
-            badgeClass = 'bg-green-100 text-green-800';
-        } else if (status.includes('Mới')) {
-            badgeClass = 'bg-blue-100 text-blue-800';
-        } else if (status.includes('Đang')) {
-            badgeClass = 'bg-yellow-100 text-yellow-800';
-        } else if (status.includes('Chậm') || status.includes('Lỗi')) {
-            badgeClass = 'bg-red-100 text-red-800';
-        }
-
-        return `<span class="px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeClass}">${status}</span>`;
-    }
-
-    // Cache cho chi tiết dự án
-    const projectDetailCache = new Map();
-    
-    // Hàm tải chi tiết dự án
-    async function loadProjectDetail(maKeHoach) {
-        // Hiển thị spinner
-        document.getElementById('detailLoading').style.display = 'flex';
-        document.getElementById('detailContent').style.display = 'none';
-
-        try {
-            let data;
-            const cacheKey = `project_${maKeHoach}`;
-            
-            // Kiểm tra cache
-            if (projectDetailCache.has(cacheKey)) {
-                data = projectDetailCache.get(cacheKey);
-                console.log('Lấy chi tiết dự án từ cache:', cacheKey);
+            // Thay đổi màu sắc dựa trên loại thông báo
+            if (type === 'error') {
+                toast.classList.remove('text-green-800', 'bg-green-50');
+                toast.classList.add('text-red-800', 'bg-red-50');
+                document.querySelector('#toast .inline-flex').classList.remove('text-green-500', 'bg-green-100');
+                document.querySelector('#toast .inline-flex').classList.add('text-red-500', 'bg-red-100');
+                document.querySelector('#toast .inline-flex i').classList.remove('fa-check');
+                document.querySelector('#toast .inline-flex i').classList.add('fa-exclamation-circle');
             } else {
-                // Gọi API nếu không có trong cache
-                data = await api.get(`/api/duan/${maKeHoach}`);
-                
-                // Lưu vào cache với thời gian hết hạn 5 phút
-                projectDetailCache.set(cacheKey, data);
-                setTimeout(() => projectDetailCache.delete(cacheKey), 5 * 60 * 1000);
+                toast.classList.remove('text-red-800', 'bg-red-50');
+                toast.classList.add('text-green-800', 'bg-green-50');
+                document.querySelector('#toast .inline-flex').classList.remove('text-red-500', 'bg-red-100');
+                document.querySelector('#toast .inline-flex').classList.add('text-green-500', 'bg-green-100');
+                document.querySelector('#toast .inline-flex i').classList.remove('fa-exclamation-circle');
+                document.querySelector('#toast .inline-flex i').classList.add('fa-check');
             }
 
-            document.getElementById('detailLoading').style.display = 'none';
-            document.getElementById('detailContent').style.display = 'block';
+            toast.classList.remove('hidden');
 
-            if (data.success) {
-                // Lấy thông tin dự án từ cấu trúc đúng
-                const duan = data.data.duan;
+            // Tự động ẩn toast sau 3 giây
+            setTimeout(hideToast, 3000);
+        }
 
-                // Cập nhật tiêu đề trang
-                document.title = `${duan.TenCongTrinh || 'Chi tiết dự án'} - Hệ thống Quản lý Dự án`;
+        // Hàm ẩn thông báo toast
+        function hideToast() {
+            document.getElementById('toast').classList.add('hidden');
+        }
 
-                // Cập nhật tiêu đề
-                document.getElementById('projectTitle').textContent = duan.TenCongTrinh || 'Không có tên';
+        // Hàm định dạng ngày tháng
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('vi-VN');
+        }
 
-                // Cập nhật thông tin dự án
-                document.getElementById('MaKeHoach').textContent = duan.MaKeHoach || 'N/A';
-                document.getElementById('POP').textContent = duan.POP || 'N/A';
-                document.getElementById('TenCongTrinh').textContent = duan.TenCongTrinh || 'N/A';
-                document.getElementById('DiaChiThiCong').textContent = duan.DiaChiThiCong || 'N/A';
-                document.getElementById('KhuVuc').textContent = duan.KhuVuc || 'N/A';
-                document.getElementById('NgayNhan').textContent = formatDate(duan.NgayNhan);
-                document.getElementById('DeadlineKH').textContent = formatDate(duan.DeadlineKH);
-                document.getElementById('NgayThiCongXong').textContent = formatDate(duan.NgayThiCongXong);
-                document.getElementById('TrangThaiDuAn').innerHTML = createStatusBadge(duan.TrangThaiDuAn);
-                document.getElementById('NguoiGiaoViec').textContent = duan.NguoiGiaoViec || 'N/A';
-                document.getElementById('GiamSat').textContent = duan.GiamSat || 'N/A';
-                document.getElementById('NhanVienDuAnPhuTrach').textContent = duan.NhanVienDuAnPhuTrach || 'N/A';
-                
-                // Cập nhật tổng hợp số lượng báo cáo
-                if (data.data.summary) {
-                    const summary = data.data.summary;
-                    document.getElementById('totalBCGS').textContent = summary.totalBCGS || 0;
-                    document.getElementById('totalBCHN').textContent = summary.totalBCHN || 0;
-                    document.getElementById('totalBCHNDE').textContent = summary.totalBCHNDE || 0;
+        // Hàm tạo badge cho trạng thái dự án
+        function createStatusBadge(status) {
+            if (!status) return 'N/A';
+
+            let badgeClass = 'bg-gray-200 text-gray-800';
+
+            if (status.includes('Hoàn thành')) {
+                badgeClass = 'bg-green-100 text-green-800';
+            } else if (status.includes('Mới')) {
+                badgeClass = 'bg-blue-100 text-blue-800';
+            } else if (status.includes('Đang')) {
+                badgeClass = 'bg-yellow-100 text-yellow-800';
+            } else if (status.includes('Chậm') || status.includes('Lỗi')) {
+                badgeClass = 'bg-red-100 text-red-800';
+            }
+
+            return `<span class="px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeClass}">${status}</span>`;
+        }
+
+        // Cache cho chi tiết dự án
+        const projectDetailCache = new Map();
+
+        // Hàm tải chi tiết dự án
+        async function loadProjectDetail(maKeHoach) {
+            // Hiển thị spinner
+            document.getElementById('detailLoading').style.display = 'flex';
+            document.getElementById('detailContent').style.display = 'none';
+
+            try {
+                let data;
+                const cacheKey = `project_${maKeHoach}`;
+
+                // Kiểm tra cache
+                if (projectDetailCache.has(cacheKey)) {
+                    data = projectDetailCache.get(cacheKey);
+                    console.log('Lấy chi tiết dự án từ cache:', cacheKey);
+                } else {
+                    // Gọi API nếu không có trong cache
+                    data = await api.get(`/api/duan/${maKeHoach}`);
+
+                    // Lưu vào cache với thời gian hết hạn 5 phút
+                    projectDetailCache.set(cacheKey, data);
+                    setTimeout(() => projectDetailCache.delete(cacheKey), 5 * 60 * 1000);
                 }
 
-                // Sử dụng dữ liệu bcgs có sẵn từ API
-                renderBCGS(data.data.bcgs || []);
-                
-                // Sử dụng dữ liệu bchn có sẵn từ API
-                renderBCHN(data.data.bchn || []);
-                
-                // Sử dụng dữ liệu bchnde có sẵn từ API
-                renderBCHNDE(data.data.bchnde || []);
-                
-                // Hiển thị thông báo
-                showToast(`Đã tải thông tin dự án ${duan.MaKeHoach}`);
-            } else {
-                showToast(`Không thể tải thông tin dự án: ${data.error || 'Lỗi không xác định'}`, 'error');
+                document.getElementById('detailLoading').style.display = 'none';
+                document.getElementById('detailContent').style.display = 'block';
+
+                if (data.success) {
+                    // Lấy thông tin dự án từ cấu trúc đúng
+                    const duan = data.data.duan;
+
+                    // Cập nhật tiêu đề trang
+                    document.title = `${duan.TenCongTrinh || 'Chi tiết dự án'} - Hệ thống Quản lý Dự án`;
+
+                    // Cập nhật tiêu đề
+                    document.getElementById('projectTitle').textContent = duan.TenCongTrinh || 'Không có tên';
+
+                    // Cập nhật thông tin dự án
+                    document.getElementById('MaKeHoach').textContent = duan.MaKeHoach || 'N/A';
+                    document.getElementById('POP').textContent = duan.POP || 'N/A';
+                    document.getElementById('TenCongTrinh').textContent = duan.TenCongTrinh || 'N/A';
+                    document.getElementById('DiaChiThiCong').textContent = duan.DiaChiThiCong || 'N/A';
+                    document.getElementById('KhuVuc').textContent = duan.KhuVuc || 'N/A';
+                    document.getElementById('NgayNhan').textContent = formatDate(duan.NgayNhan);
+                    document.getElementById('DeadlineKH').textContent = formatDate(duan.DeadlineKH);
+                    document.getElementById('NgayThiCongXong').textContent = formatDate(duan.NgayThiCongXong);
+                    document.getElementById('TrangThaiDuAn').innerHTML = createStatusBadge(duan.TrangThaiDuAn);
+                    document.getElementById('NguoiGiaoViec').textContent = duan.NguoiGiaoViec || 'N/A';
+                    document.getElementById('GiamSat').textContent = duan.GiamSat || 'N/A';
+                    document.getElementById('NhanVienDuAnPhuTrach').textContent = duan.NhanVienDuAnPhuTrach || 'N/A';
+
+                    // Cập nhật tổng hợp số lượng báo cáo
+                    if (data.data.summary) {
+                        const summary = data.data.summary;
+                        document.getElementById('totalBCGS').textContent = summary.totalBCGS || 0;
+                        document.getElementById('totalBCHN').textContent = summary.totalBCHN || 0;
+                        document.getElementById('totalBCHNDE').textContent = summary.totalBCHNDE || 0;
+                    }
+
+                    // Sử dụng dữ liệu bcgs có sẵn từ API
+                    renderBCGS(data.data.bcgs || []);
+
+                    // Sử dụng dữ liệu bchn có sẵn từ API
+                    renderBCHN(data.data.bchn || []);
+
+                    // Sử dụng dữ liệu bchnde có sẵn từ API
+                    renderBCHNDE(data.data.bchnde || []);
+
+                    // Hiển thị thông báo
+                    showToast(`Đã tải thông tin dự án ${duan.MaKeHoach}`);
+                } else {
+                    showToast(`Không thể tải thông tin dự án: ${data.error || 'Lỗi không xác định'}`, 'error');
+                }
+            } catch (error) {
+                document.getElementById('detailLoading').style.display = 'none';
+                showToast('Lỗi kết nối đến máy chủ. Vui lòng thử lại sau.', 'error');
             }
-        } catch (error) {
-            document.getElementById('detailLoading').style.display = 'none';
-            showToast('Lỗi kết nối đến máy chủ. Vui lòng thử lại sau.', 'error');
         }
-    }
-    
-    // Lấy kích thước trang từ select
-    function getPageSize(tableType) {
-        const selectElement = document.getElementById(`${tableType}PageSize`);
-        return selectElement ? parseInt(selectElement.value) : PAGE_SIZE;
-    }
 
-    // Lọc dữ liệu BCGS theo tiêu chí tìm kiếm
-   // Lọc dữ liệu BCGS theo tiêu chí tìm kiếm
-   function getFilteredBCGS() {
-        const searchTerm = searchFilters.bcgs.toLowerCase();
-        if (!searchTerm) return filteredData.bcgs;
-        
-        return filteredData.bcgs.filter(item => {
-            return (
-                (item.POP && item.POP.toLowerCase().includes(searchTerm)) ||
-                (item.KhuVuc && item.KhuVuc.toLowerCase().includes(searchTerm)) ||
-                (item.TuyenCap && item.TuyenCap.toLowerCase().includes(searchTerm)) ||
-                (item.DiemDau && item.DiemDau.toLowerCase().includes(searchTerm)) ||
-                (item.DiemCuoi && item.DiemCuoi.toLowerCase().includes(searchTerm)) ||
-                (item.LoaiCap && item.LoaiCap.toLowerCase().includes(searchTerm)) ||
-                (item.DoiKeo && item.DoiKeo.toLowerCase().includes(searchTerm)) ||
-                (item.DoiHan && item.DoiHan.toLowerCase().includes(searchTerm))
-            );
-        });
-    }
-
-    // Lọc dữ liệu BCHN theo tiêu chí tìm kiếm
-    function getFilteredBCHN() {
-        const searchTerm = searchFilters.bchn.toLowerCase();
-        if (!searchTerm) return filteredData.bchn;
-        
-        return filteredData.bchn.filter(item => {
-            return (
-                (item.POP && item.POP.toLowerCase().includes(searchTerm)) ||
-                (item.KhuVuc && item.KhuVuc.toLowerCase().includes(searchTerm)) ||
-                (item.ViTri && item.ViTri.toLowerCase().includes(searchTerm)) ||
-                (item.LoaiSanPham && item.LoaiSanPham.toLowerCase().includes(searchTerm)) ||
-                (item.NhanSuThamGia && item.NhanSuThamGia.toLowerCase().includes(searchTerm))
-            );
-        });
-    }
-
-    // Lọc dữ liệu BCHNDE theo tiêu chí tìm kiếm
-    function getFilteredBCHNDE() {
-        const searchTerm = searchFilters.bchnde.toLowerCase();
-        if (!searchTerm) return filteredData.bchnde;
-        
-        return filteredData.bchnde.filter(item => {
-            return (
-                (item.POP && item.POP.toLowerCase().includes(searchTerm)) ||
-                (item.KhuVuc && item.KhuVuc.toLowerCase().includes(searchTerm)) ||
-                (item.ViTri && item.ViTri.toLowerCase().includes(searchTerm)) ||
-                (item.LoaiSanPham && item.LoaiSanPham.toLowerCase().includes(searchTerm)) ||
-                (item.NhanSuThamGia && item.NhanSuThamGia.toLowerCase().includes(searchTerm))
-            );
-        });
-    }
-
-    // Lọc và hiển thị dữ liệu BCGS theo trang
-    function filterAndDisplayBCGS() {
-        const filtered = getFilteredBCGS();
-        const pageSize = getPageSize('bcgs');
-        const totalPages = Math.ceil(filtered.length / pageSize);
-        
-        // Cập nhật thông tin phân trang
-        document.getElementById('bcgsCurrentPage').textContent = currentPages.bcgs;
-        document.getElementById('bcgsTotalPages').textContent = totalPages || 1;
-        
-        // Vô hiệu hóa nút trang trước/tiếp theo nếu cần
-        document.getElementById('bcgsPrevPage').disabled = currentPages.bcgs <= 1;
-        document.getElementById('bcgsNextPage').disabled = currentPages.bcgs >= totalPages;
-        
-        // Cập nhật UI cho nút bị vô hiệu hóa
-        if (currentPages.bcgs <= 1) {
-            document.getElementById('bcgsPrevPage').classList.add('opacity-50', 'cursor-not-allowed');
-        } else {
-            document.getElementById('bcgsPrevPage').classList.remove('opacity-50', 'cursor-not-allowed');
+        // Lấy kích thước trang từ select
+        function getPageSize(tableType) {
+            const selectElement = document.getElementById(`${tableType}PageSize`);
+            return selectElement ? parseInt(selectElement.value) : PAGE_SIZE;
         }
-        
-        if (currentPages.bcgs >= totalPages) {
-            document.getElementById('bcgsNextPage').classList.add('opacity-50', 'cursor-not-allowed');
-        } else {
-            document.getElementById('bcgsNextPage').classList.remove('opacity-50', 'cursor-not-allowed');
+
+        // Lọc dữ liệu BCGS theo tiêu chí tìm kiếm
+        // Lọc dữ liệu BCGS theo tiêu chí tìm kiếm
+        function getFilteredBCGS() {
+            const searchTerm = searchFilters.bcgs.toLowerCase();
+            if (!searchTerm) return filteredData.bcgs;
+
+            return filteredData.bcgs.filter(item => {
+                return (
+                    (item.POP && item.POP.toLowerCase().includes(searchTerm)) ||
+                    (item.KhuVuc && item.KhuVuc.toLowerCase().includes(searchTerm)) ||
+                    (item.TuyenCap && item.TuyenCap.toLowerCase().includes(searchTerm)) ||
+                    (item.DiemDau && item.DiemDau.toLowerCase().includes(searchTerm)) ||
+                    (item.DiemCuoi && item.DiemCuoi.toLowerCase().includes(searchTerm)) ||
+                    (item.LoaiCap && item.LoaiCap.toLowerCase().includes(searchTerm)) ||
+                    (item.DoiKeo && item.DoiKeo.toLowerCase().includes(searchTerm)) ||
+                    (item.DoiHan && item.DoiHan.toLowerCase().includes(searchTerm))
+                );
+            });
         }
-        
-        // Tính chỉ số bắt đầu và kết thúc cho trang hiện tại
-        const startIndex = (currentPages.bcgs - 1) * pageSize;
-        const endIndex = Math.min(startIndex + pageSize, filtered.length);
-        
-        // Lấy dữ liệu cho trang hiện tại
-        const pageData = filtered.slice(startIndex, endIndex);
-        
-        // Hiển thị dữ liệu
-        const tableBody = document.getElementById('bcgsTableBody');
-        tableBody.innerHTML = '';
-        
-        if (pageData.length === 0) {
-            const emptyRow = document.createElement('tr');
-            emptyRow.innerHTML = `<td colspan="9" class="px-6 py-4 text-center text-gray-500">Không tìm thấy dữ liệu phù hợp</td>`;
-            tableBody.appendChild(emptyRow);
-        } else {
-            pageData.forEach(item => {
-                const row = document.createElement('tr');
-                row.className = 'bg-white border-b hover:bg-gray-50';
-                row.innerHTML = `
+
+        // Lọc dữ liệu BCHN theo tiêu chí tìm kiếm
+        function getFilteredBCHN() {
+            const searchTerm = searchFilters.bchn.toLowerCase();
+            if (!searchTerm) return filteredData.bchn;
+
+            return filteredData.bchn.filter(item => {
+                return (
+                    (item.POP && item.POP.toLowerCase().includes(searchTerm)) ||
+                    (item.KhuVuc && item.KhuVuc.toLowerCase().includes(searchTerm)) ||
+                    (item.ViTri && item.ViTri.toLowerCase().includes(searchTerm)) ||
+                    (item.LoaiSanPham && item.LoaiSanPham.toLowerCase().includes(searchTerm)) ||
+                    (item.NhanSuThamGia && item.NhanSuThamGia.toLowerCase().includes(searchTerm))
+                );
+            });
+        }
+
+        // Lọc dữ liệu BCHNDE theo tiêu chí tìm kiếm
+        function getFilteredBCHNDE() {
+            const searchTerm = searchFilters.bchnde.toLowerCase();
+            if (!searchTerm) return filteredData.bchnde;
+
+            return filteredData.bchnde.filter(item => {
+                return (
+                    (item.POP && item.POP.toLowerCase().includes(searchTerm)) ||
+                    (item.KhuVuc && item.KhuVuc.toLowerCase().includes(searchTerm)) ||
+                    (item.ViTri && item.ViTri.toLowerCase().includes(searchTerm)) ||
+                    (item.LoaiSanPham && item.LoaiSanPham.toLowerCase().includes(searchTerm)) ||
+                    (item.NhanSuThamGia && item.NhanSuThamGia.toLowerCase().includes(searchTerm))
+                );
+            });
+        }
+
+        // Lọc và hiển thị dữ liệu BCGS theo trang
+        function filterAndDisplayBCGS() {
+            const filtered = getFilteredBCGS();
+            const pageSize = getPageSize('bcgs');
+            const totalPages = Math.ceil(filtered.length / pageSize);
+
+            // Cập nhật thông tin phân trang
+            document.getElementById('bcgsCurrentPage').textContent = currentPages.bcgs;
+            document.getElementById('bcgsTotalPages').textContent = totalPages || 1;
+
+            // Vô hiệu hóa nút trang trước/tiếp theo nếu cần
+            document.getElementById('bcgsPrevPage').disabled = currentPages.bcgs <= 1;
+            document.getElementById('bcgsNextPage').disabled = currentPages.bcgs >= totalPages;
+
+            // Cập nhật UI cho nút bị vô hiệu hóa
+            if (currentPages.bcgs <= 1) {
+                document.getElementById('bcgsPrevPage').classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                document.getElementById('bcgsPrevPage').classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            if (currentPages.bcgs >= totalPages) {
+                document.getElementById('bcgsNextPage').classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                document.getElementById('bcgsNextPage').classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            // Tính chỉ số bắt đầu và kết thúc cho trang hiện tại
+            const startIndex = (currentPages.bcgs - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, filtered.length);
+
+            // Lấy dữ liệu cho trang hiện tại
+            const pageData = filtered.slice(startIndex, endIndex);
+
+            // Hiển thị dữ liệu
+            const tableBody = document.getElementById('bcgsTableBody');
+            tableBody.innerHTML = '';
+
+            if (pageData.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = `<td colspan="9" class="px-6 py-4 text-center text-gray-500">Không tìm thấy dữ liệu phù hợp</td>`;
+                tableBody.appendChild(emptyRow);
+            } else {
+                pageData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'bg-white border-b hover:bg-gray-50';
+                    row.innerHTML = `
                     <td class="px-6 py-4">${item.POP || 'N/A'}</td>
                     <td class="px-6 py-4">${item.KhuVuc || 'N/A'}</td>
                     <td class="px-6 py-4">${item.TuyenCap || 'N/A'}</td>
@@ -572,118 +584,118 @@
                     <td class="px-6 py-4">${item.DoiKeo || 'N/A'}</td>
                     <td class="px-6 py-4">${item.DoiHan || 'N/A'}</td>
                 `;
-                tableBody.appendChild(row);
-            });
+                    tableBody.appendChild(row);
+                });
+            }
         }
-    }
 
-    // Lọc và hiển thị dữ liệu BCHN theo trang
-    function filterAndDisplayBCHN() {
-        const filtered = getFilteredBCHN();
-        const pageSize = getPageSize('bchn');
-        const totalPages = Math.ceil(filtered.length / pageSize);
-        
-        // Cập nhật thông tin phân trang
-        document.getElementById('bchnCurrentPage').textContent = currentPages.bchn;
-        document.getElementById('bchnTotalPages').textContent = totalPages || 1;
-        
-        // Vô hiệu hóa nút trang trước/tiếp theo nếu cần
-        document.getElementById('bchnPrevPage').disabled = currentPages.bchn <= 1;
-        document.getElementById('bchnNextPage').disabled = currentPages.bchn >= totalPages;
-        
-        // Cập nhật UI cho nút bị vô hiệu hóa
-        if (currentPages.bchn <= 1) {
-            document.getElementById('bchnPrevPage').classList.add('opacity-50', 'cursor-not-allowed');
-        } else {
-            document.getElementById('bchnPrevPage').classList.remove('opacity-50', 'cursor-not-allowed');
-        }
-        
-        if (currentPages.bchn >= totalPages) {
-            document.getElementById('bchnNextPage').classList.add('opacity-50', 'cursor-not-allowed');
-        } else {
-            document.getElementById('bchnNextPage').classList.remove('opacity-50', 'cursor-not-allowed');
-        }
-        
-        // Tính chỉ số bắt đầu và kết thúc cho trang hiện tại
-        const startIndex = (currentPages.bchn - 1) * pageSize;
-        const endIndex = Math.min(startIndex + pageSize, filtered.length);
-        
-        // Lấy dữ liệu cho trang hiện tại
-        const pageData = filtered.slice(startIndex, endIndex);
-        
-        // Hiển thị dữ liệu
-        const tableBody = document.getElementById('bchnTableBody');
-        tableBody.innerHTML = '';
-        
-        if (pageData.length === 0) {
-            const emptyRow = document.createElement('tr');
-            emptyRow.innerHTML = `<td colspan="7" class="px-6 py-4 text-center text-gray-500">Không tìm thấy dữ liệu phù hợp</td>`;
-            tableBody.appendChild(emptyRow);
-        } else {
-            pageData.forEach(item => {
-                const row = document.createElement('tr');
-                row.className = 'bg-white border-b hover:bg-gray-50';
-                row.innerHTML = `
+        // Lọc và hiển thị dữ liệu BCHN theo trang
+        function filterAndDisplayBCHN() {
+            const filtered = getFilteredBCHN();
+            const pageSize = getPageSize('bchn');
+            const totalPages = Math.ceil(filtered.length / pageSize);
+
+            // Cập nhật thông tin phân trang
+            document.getElementById('bchnCurrentPage').textContent = currentPages.bchn;
+            document.getElementById('bchnTotalPages').textContent = totalPages || 1;
+
+            // Vô hiệu hóa nút trang trước/tiếp theo nếu cần
+            document.getElementById('bchnPrevPage').disabled = currentPages.bchn <= 1;
+            document.getElementById('bchnNextPage').disabled = currentPages.bchn >= totalPages;
+
+            // Cập nhật UI cho nút bị vô hiệu hóa
+            if (currentPages.bchn <= 1) {
+                document.getElementById('bchnPrevPage').classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                document.getElementById('bchnPrevPage').classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            if (currentPages.bchn >= totalPages) {
+                document.getElementById('bchnNextPage').classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                document.getElementById('bchnNextPage').classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            // Tính chỉ số bắt đầu và kết thúc cho trang hiện tại
+            const startIndex = (currentPages.bchn - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, filtered.length);
+
+            // Lấy dữ liệu cho trang hiện tại
+            const pageData = filtered.slice(startIndex, endIndex);
+
+            // Hiển thị dữ liệu
+            const tableBody = document.getElementById('bchnTableBody');
+            tableBody.innerHTML = '';
+
+            if (pageData.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = `<td colspan="7" class="px-6 py-4 text-center text-gray-500">Không tìm thấy dữ liệu phù hợp</td>`;
+                tableBody.appendChild(emptyRow);
+            } else {
+                pageData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'bg-white border-b hover:bg-gray-50';
+                    row.innerHTML = `
                     <td class="px-6 py-4">${item.ViTri || 'N/A'}</td>
                     <td class="px-6 py-4">${item.SoLuong || '0'}</td>
                     <td class="px-6 py-4">${item.LoaiSanPham || 'N/A'}</td>
                     <td class="px-6 py-4">${item.NhanSuThamGia || 'N/A'}</td>
                     <td class="px-6 py-4">${item.ThoiGian || 'N/A'}</td>
-                    <td class="px-6 py-4">${item.TrangThai  || 'N/A'}</td>
+                    <td class="px-6 py-4">${item.TrangThai || 'N/A'}</td>
                     <td class="px-6 py-4">${item.SoTien ? new Intl.NumberFormat('vi-VN').format(item.SoTien) : '0'} VNĐ</td>
                 `;
-                tableBody.appendChild(row);
-            });
+                    tableBody.appendChild(row);
+                });
+            }
         }
-    }
 
-    // Lọc và hiển thị dữ liệu BCHNDE theo trang
-    function filterAndDisplayBCHNDE() {
-        const filtered = getFilteredBCHNDE();
-        const pageSize = getPageSize('bchnde');
-        const totalPages = Math.ceil(filtered.length / pageSize);
-        
-        // Cập nhật thông tin phân trang
-        document.getElementById('bchndeCurrentPage').textContent = currentPages.bchnde;
-        document.getElementById('bchndeTotalPages').textContent = totalPages || 1;
-        
-        // Vô hiệu hóa nút trang trước/tiếp theo nếu cần
-        document.getElementById('bchndePrevPage').disabled = currentPages.bchnde <= 1;
-        document.getElementById('bchndeNextPage').disabled = currentPages.bchnde >= totalPages;
-        
-        // Cập nhật UI cho nút bị vô hiệu hóa
-        if (currentPages.bchnde <= 1) {
-            document.getElementById('bchndePrevPage').classList.add('opacity-50', 'cursor-not-allowed');
-        } else {
-            document.getElementById('bchndePrevPage').classList.remove('opacity-50', 'cursor-not-allowed');
-        }
-        
-        if (currentPages.bchnde >= totalPages) {
-            document.getElementById('bchndeNextPage').classList.add('opacity-50', 'cursor-not-allowed');
-        } else {
-            document.getElementById('bchndeNextPage').classList.remove('opacity-50', 'cursor-not-allowed');
-        }
-        
-        // Tính chỉ số bắt đầu và kết thúc cho trang hiện tại
-        const startIndex = (currentPages.bchnde - 1) * pageSize;
-        const endIndex = Math.min(startIndex + pageSize, filtered.length);
-        
-        // Lấy dữ liệu cho trang hiện tại
-        const pageData = filtered.slice(startIndex, endIndex);
-        
-        // Hiển thị dữ liệu
-        const tableBody = document.getElementById('bchndeTableBody');
-        tableBody.innerHTML = '';
-        
-        if (pageData.length === 0) {
-            const emptyRow = document.createElement('tr');
-            emptyRow.innerHTML = `<td colspan="6" class="px-6 py-4 text-center text-gray-500">Không tìm thấy dữ liệu phù hợp</td>`;
-            tableBody.appendChild(emptyRow);
-        } else {
-            pageData.forEach(item => {
-                const row = document.createElement('tr');
-                row.className = 'bg-white border-b hover:bg-gray-50';
-                row.innerHTML = `
+        // Lọc và hiển thị dữ liệu BCHNDE theo trang
+        function filterAndDisplayBCHNDE() {
+            const filtered = getFilteredBCHNDE();
+            const pageSize = getPageSize('bchnde');
+            const totalPages = Math.ceil(filtered.length / pageSize);
+
+            // Cập nhật thông tin phân trang
+            document.getElementById('bchndeCurrentPage').textContent = currentPages.bchnde;
+            document.getElementById('bchndeTotalPages').textContent = totalPages || 1;
+
+            // Vô hiệu hóa nút trang trước/tiếp theo nếu cần
+            document.getElementById('bchndePrevPage').disabled = currentPages.bchnde <= 1;
+            document.getElementById('bchndeNextPage').disabled = currentPages.bchnde >= totalPages;
+
+            // Cập nhật UI cho nút bị vô hiệu hóa
+            if (currentPages.bchnde <= 1) {
+                document.getElementById('bchndePrevPage').classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                document.getElementById('bchndePrevPage').classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            if (currentPages.bchnde >= totalPages) {
+                document.getElementById('bchndeNextPage').classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                document.getElementById('bchndeNextPage').classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            // Tính chỉ số bắt đầu và kết thúc cho trang hiện tại
+            const startIndex = (currentPages.bchnde - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, filtered.length);
+
+            // Lấy dữ liệu cho trang hiện tại
+            const pageData = filtered.slice(startIndex, endIndex);
+
+            // Hiển thị dữ liệu
+            const tableBody = document.getElementById('bchndeTableBody');
+            tableBody.innerHTML = '';
+
+            if (pageData.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = `<td colspan="6" class="px-6 py-4 text-center text-gray-500">Không tìm thấy dữ liệu phù hợp</td>`;
+                tableBody.appendChild(emptyRow);
+            } else {
+                pageData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'bg-white border-b hover:bg-gray-50';
+                    row.innerHTML = `
                     <td class="px-6 py-4">${item.POP || 'N/A'}</td>
                     <td class="px-6 py-4">${item.KhuVuc || 'N/A'}</td>
                     <td class="px-6 py-4">${item.ViTri || 'N/A'}</td>
@@ -691,17 +703,17 @@
                     <td class="px-6 py-4">${item.LoaiSanPham || 'N/A'}</td>
                     <td class="px-6 py-4">${item.SoTien ? new Intl.NumberFormat('vi-VN').format(item.SoTien) : '0'} VNĐ</td>
                 `;
-                tableBody.appendChild(row);
-            });
+                    tableBody.appendChild(row);
+                });
+            }
         }
-    }
 
-    // Hàm tạo điều khiển tìm kiếm và phân trang cho BCGS
-    function renderBCGSControls() {
-        // Kiểm tra nếu đã tồn tại, không tạo lại
-        if (document.getElementById('bcgsControls')) return;
-        
-        const controlsHTML = `
+        // Hàm tạo điều khiển tìm kiếm và phân trang cho BCGS
+        function renderBCGSControls() {
+            // Kiểm tra nếu đã tồn tại, không tạo lại
+            if (document.getElementById('bcgsControls')) return;
+
+            const controlsHTML = `
             <div id="bcgsControls" class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <div class="flex items-center mb-3 md:mb-0 w-full md:w-auto">
                     <div class="relative">
@@ -739,53 +751,53 @@
                 </div>
             </div>
         `;
-        
-        // Thêm vào trước bảng
-        const tableContainer = document.getElementById('bcgsTable').parentNode;
-        tableContainer.insertAdjacentHTML('beforebegin', controlsHTML);
-        
-        // Thêm các sự kiện
-        document.getElementById('bcgsSearchBtn').addEventListener('click', () => {
-            searchFilters.bcgs = document.getElementById('bcgsSearch').value.toLowerCase();
-            currentPages.bcgs = 1; // Reset về trang 1 khi tìm kiếm
-            filterAndDisplayBCGS();
-        });
-        
-        document.getElementById('bcgsSearch').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                searchFilters.bcgs = document.getElementById('bcgsSearch').value.toLowerCase();
-                currentPages.bcgs = 1;
-                filterAndDisplayBCGS();
-            }
-        });
-        
-        document.getElementById('bcgsPageSize').addEventListener('change', () => {
-            currentPages.bcgs = 1; // Reset về trang 1 khi thay đổi kích thước trang
-            filterAndDisplayBCGS();
-        });
-        
-        document.getElementById('bcgsPrevPage').addEventListener('click', () => {
-            if (currentPages.bcgs > 1) {
-                currentPages.bcgs--;
-                filterAndDisplayBCGS();
-            }
-        });
-        
-        document.getElementById('bcgsNextPage').addEventListener('click', () => {
-            const totalPages = Math.ceil(getFilteredBCGS().length / getPageSize('bcgs'));
-            if (currentPages.bcgs < totalPages) {
-                currentPages.bcgs++;
-                filterAndDisplayBCGS();
-            }
-        });
-    }
 
-    // Hàm tạo điều khiển tìm kiếm và phân trang cho BCHN
-    function renderBCHNControls() {
-        // Kiểm tra nếu đã tồn tại, không tạo lại
-        if (document.getElementById('bchnControls')) return;
-        
-        const controlsHTML = `
+            // Thêm vào trước bảng
+            const tableContainer = document.getElementById('bcgsTable').parentNode;
+            tableContainer.insertAdjacentHTML('beforebegin', controlsHTML);
+
+            // Thêm các sự kiện
+            document.getElementById('bcgsSearchBtn').addEventListener('click', () => {
+                searchFilters.bcgs = document.getElementById('bcgsSearch').value.toLowerCase();
+                currentPages.bcgs = 1; // Reset về trang 1 khi tìm kiếm
+                filterAndDisplayBCGS();
+            });
+
+            document.getElementById('bcgsSearch').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchFilters.bcgs = document.getElementById('bcgsSearch').value.toLowerCase();
+                    currentPages.bcgs = 1;
+                    filterAndDisplayBCGS();
+                }
+            });
+
+            document.getElementById('bcgsPageSize').addEventListener('change', () => {
+                currentPages.bcgs = 1; // Reset về trang 1 khi thay đổi kích thước trang
+                filterAndDisplayBCGS();
+            });
+
+            document.getElementById('bcgsPrevPage').addEventListener('click', () => {
+                if (currentPages.bcgs > 1) {
+                    currentPages.bcgs--;
+                    filterAndDisplayBCGS();
+                }
+            });
+
+            document.getElementById('bcgsNextPage').addEventListener('click', () => {
+                const totalPages = Math.ceil(getFilteredBCGS().length / getPageSize('bcgs'));
+                if (currentPages.bcgs < totalPages) {
+                    currentPages.bcgs++;
+                    filterAndDisplayBCGS();
+                }
+            });
+        }
+
+        // Hàm tạo điều khiển tìm kiếm và phân trang cho BCHN
+        function renderBCHNControls() {
+            // Kiểm tra nếu đã tồn tại, không tạo lại
+            if (document.getElementById('bchnControls')) return;
+
+            const controlsHTML = `
             <div id="bchnControls" class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <div class="flex items-center mb-3 md:mb-0 w-full md:w-auto">
                     <div class="relative">
@@ -823,53 +835,53 @@
                 </div>
             </div>
         `;
-        
-        // Thêm vào trước bảng
-        const tableContainer = document.getElementById('bchnTable').parentNode;
-        tableContainer.insertAdjacentHTML('beforebegin', controlsHTML);
-        
-        // Thêm các sự kiện
-        document.getElementById('bchnSearchBtn').addEventListener('click', () => {
-            searchFilters.bchn = document.getElementById('bchnSearch').value.toLowerCase();
-            currentPages.bchn = 1;
-            filterAndDisplayBCHN();
-        });
-        
-        document.getElementById('bchnSearch').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+
+            // Thêm vào trước bảng
+            const tableContainer = document.getElementById('bchnTable').parentNode;
+            tableContainer.insertAdjacentHTML('beforebegin', controlsHTML);
+
+            // Thêm các sự kiện
+            document.getElementById('bchnSearchBtn').addEventListener('click', () => {
                 searchFilters.bchn = document.getElementById('bchnSearch').value.toLowerCase();
                 currentPages.bchn = 1;
                 filterAndDisplayBCHN();
-            }
-        });
-        
-        document.getElementById('bchnPageSize').addEventListener('change', () => {
-            currentPages.bchn = 1;
-            filterAndDisplayBCHN();
-        });
-        
-        document.getElementById('bchnPrevPage').addEventListener('click', () => {
-            if (currentPages.bchn > 1) {
-                currentPages.bchn--;
-                filterAndDisplayBCHN();
-            }
-        });
-        
-        document.getElementById('bchnNextPage').addEventListener('click', () => {
-            const totalPages = Math.ceil(getFilteredBCHN().length / getPageSize('bchn'));
-            if (currentPages.bchn < totalPages) {
-                currentPages.bchn++;
-                filterAndDisplayBCHN();
-            }
-        });
-    }
+            });
 
-    // Hàm tạo điều khiển tìm kiếm và phân trang cho BCHNDE
-    function renderBCHNDEControls() {
-        // Kiểm tra nếu đã tồn tại, không tạo lại
-        if (document.getElementById('bchndeControls')) return;
-        
-        const controlsHTML = `
+            document.getElementById('bchnSearch').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchFilters.bchn = document.getElementById('bchnSearch').value.toLowerCase();
+                    currentPages.bchn = 1;
+                    filterAndDisplayBCHN();
+                }
+            });
+
+            document.getElementById('bchnPageSize').addEventListener('change', () => {
+                currentPages.bchn = 1;
+                filterAndDisplayBCHN();
+            });
+
+            document.getElementById('bchnPrevPage').addEventListener('click', () => {
+                if (currentPages.bchn > 1) {
+                    currentPages.bchn--;
+                    filterAndDisplayBCHN();
+                }
+            });
+
+            document.getElementById('bchnNextPage').addEventListener('click', () => {
+                const totalPages = Math.ceil(getFilteredBCHN().length / getPageSize('bchn'));
+                if (currentPages.bchn < totalPages) {
+                    currentPages.bchn++;
+                    filterAndDisplayBCHN();
+                }
+            });
+        }
+
+        // Hàm tạo điều khiển tìm kiếm và phân trang cho BCHNDE
+        function renderBCHNDEControls() {
+            // Kiểm tra nếu đã tồn tại, không tạo lại
+            if (document.getElementById('bchndeControls')) return;
+
+            const controlsHTML = `
             <div id="bchndeControls" class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <div class="flex items-center mb-3 md:mb-0 w-full md:w-auto">
                     <div class="relative">
@@ -907,173 +919,746 @@
                 </div>
             </div>
         `;
-        
-        // Thêm vào trước bảng
-        const tableContainer = document.getElementById('bchndeTable').parentNode;
-        tableContainer.insertAdjacentHTML('beforebegin', controlsHTML);
-        
-        // Thêm các sự kiện
-        document.getElementById('bchndeSearchBtn').addEventListener('click', () => {
-            searchFilters.bchnde = document.getElementById('bchndeSearch').value.toLowerCase();
-            currentPages.bchnde = 1;
-            filterAndDisplayBCHNDE();
-        });
-        
-        document.getElementById('bchndeSearch').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+
+            // Thêm vào trước bảng
+            const tableContainer = document.getElementById('bchndeTable').parentNode;
+            tableContainer.insertAdjacentHTML('beforebegin', controlsHTML);
+
+            // Thêm các sự kiện
+            document.getElementById('bchndeSearchBtn').addEventListener('click', () => {
                 searchFilters.bchnde = document.getElementById('bchndeSearch').value.toLowerCase();
                 currentPages.bchnde = 1;
                 filterAndDisplayBCHNDE();
-            }
-        });
-        
-        document.getElementById('bchndePageSize').addEventListener('change', () => {
-            currentPages.bchnde = 1;
-            filterAndDisplayBCHNDE();
-        });
-        
-        document.getElementById('bchndePrevPage').addEventListener('click', () => {
-            if (currentPages.bchnde > 1) {
-                currentPages.bchnde--;
+            });
+
+            document.getElementById('bchndeSearch').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchFilters.bchnde = document.getElementById('bchndeSearch').value.toLowerCase();
+                    currentPages.bchnde = 1;
+                    filterAndDisplayBCHNDE();
+                }
+            });
+
+            document.getElementById('bchndePageSize').addEventListener('change', () => {
+                currentPages.bchnde = 1;
                 filterAndDisplayBCHNDE();
-            }
-        });
-        
-        document.getElementById('bchndeNextPage').addEventListener('click', () => {
-            const totalPages = Math.ceil(getFilteredBCHNDE().length / getPageSize('bchnde'));
-            if (currentPages.bchnde < totalPages) {
-                currentPages.bchnde++;
-                filterAndDisplayBCHNDE();
-            }
-        });
-    }
+            });
 
-    // Hàm hiển thị báo cáo giám sát từ dữ liệu (với phân trang và tìm kiếm)
-    function renderBCGS(data) {
-        document.getElementById('bcgsLoading').style.display = 'none';
-        
-        // Lưu toàn bộ dữ liệu
-        filteredData.bcgs = [...data];
-        
-        if (data && data.length > 0) {
-            document.getElementById('bcgsTable').style.display = 'table';
-            document.getElementById('bcgsNoData').style.display = 'none';
-            
-            // Render thanh tìm kiếm và điều khiển phân trang
-            renderBCGSControls();
-            
-            // Lọc và hiển thị dữ liệu
-            filterAndDisplayBCGS();
-        } else {
-            document.getElementById('bcgsTable').style.display = 'none';
-            document.getElementById('bcgsNoData').style.display = 'block';
+            document.getElementById('bchndePrevPage').addEventListener('click', () => {
+                if (currentPages.bchnde > 1) {
+                    currentPages.bchnde--;
+                    filterAndDisplayBCHNDE();
+                }
+            });
+
+            document.getElementById('bchndeNextPage').addEventListener('click', () => {
+                const totalPages = Math.ceil(getFilteredBCHNDE().length / getPageSize('bchnde'));
+                if (currentPages.bchnde < totalPages) {
+                    currentPages.bchnde++;
+                    filterAndDisplayBCHNDE();
+                }
+            });
         }
-    }
 
-    // Hàm hiển thị báo cáo hàn nối từ dữ liệu (với phân trang và tìm kiếm)
-    function renderBCHN(data) {
-        document.getElementById('bchnLoading').style.display = 'none';
-        
-        // Lưu toàn bộ dữ liệu
-        filteredData.bchn = [...data];
-        
-        if (data && data.length > 0) {
-            document.getElementById('bchnTable').style.display = 'table';
-            document.getElementById('bchnNoData').style.display = 'none';
-            
-            // Render thanh tìm kiếm và điều khiển phân trang
-            renderBCHNControls();
-            
-            // Lọc và hiển thị dữ liệu
-            filterAndDisplayBCHN();
-        } else {
-            document.getElementById('bchnTable').style.display = 'none';
-            document.getElementById('bchnNoData').style.display = 'block';
-        }
-    }
+        // Hàm hiển thị báo cáo giám sát từ dữ liệu (với phân trang và tìm kiếm)
+        function renderBCGS(data) {
+            document.getElementById('bcgsLoading').style.display = 'none';
 
-    // Hàm hiển thị báo cáo hàn nối đệ từ dữ liệu (với phân trang và tìm kiếm)
-    // Hàm hiển thị báo cáo hàn nối đệ từ dữ liệu (với phân trang và tìm kiếm)
-    function renderBCHNDE(data) {
-        document.getElementById('bchndeLoading').style.display = 'none';
-        
-        // Lưu toàn bộ dữ liệu
-        filteredData.bchnde = [...data];
-        
-        if (data && data.length > 0) {
-            document.getElementById('bchndeTable').style.display = 'table';
-            document.getElementById('bchndeNoData').style.display = 'none';
-            
-            // Render thanh tìm kiếm và điều khiển phân trang
-            renderBCHNDEControls();
-            
-            // Lọc và hiển thị dữ liệu
-            filterAndDisplayBCHNDE();
-        } else {
-            document.getElementById('bchndeTable').style.display = 'none';
-            document.getElementById('bchndeNoData').style.display = 'block';
-        }
-    }
+            // Lưu toàn bộ dữ liệu
+            filteredData.bcgs = [...data];
 
-    // Thiết lập tabs cho báo cáo
-    function setupReportTabs() {
-        document.querySelectorAll('#reportTabs [role="tab"]').forEach(tab => {
-            tab.addEventListener('click', function() {
-                // Xóa active khỏi tất cả các tab
-                document.querySelectorAll('#reportTabs [role="tab"]').forEach(t => {
-                    t.classList.remove('border-blue-600', 'text-blue-600', 'active');
-                    t.classList.add('border-transparent');
-                    t.setAttribute('aria-selected', 'false');
+            if (data && data.length > 0) {
+                document.getElementById('bcgsTable').style.display = 'block';
+                document.getElementById('bcgsNoData').style.display = 'none';
+
+                // Nếu grid đã tồn tại, hủy nó
+                if (bcgsGrid) {
+                    bcgsGrid.destroy();
+                }
+
+                const processedData = data.map(item => ({
+                    IDTUYEN: item.IDTUYEN || '',
+                    TuyenCap: item.TuyenCap || 'N/A',
+                    DiemDauCuoi: `${item.DiemDau || 'N/A'} → ${item.DiemCuoi || 'N/A'}`,
+                    LoaiCap: item.LoaiCap || 'N/A',
+                    DuToan: item.DuToan || '0',
+                    DiaChi_DiemDau: item.DiaChi_DiemDau || 'N/A',
+                    DiaChi_DiemCuoi: item.DiaChi_DiemCuoi || 'N/A',
+                    SoMetTC: item.SoMetTC || '0',
+                    TDN_SoDauCuoi: `${item.TDN_SoDau || '0'} → ${item.TDN_SoCuoi || '0'}`,
+                    SDN_SoDauCuoi: `${item.SDN_SoDau || '0'} → ${item.SDN_SoCuoi || '0'}`,
+                    DoiKeo: item.DoiKeo || 'N/A',
+                    ThoiGian: item.ThoiGian || 'N/A'
+                }));
+
+                bcgsGrid = new gridjs.Grid({
+                    columns: [
+                        { id: 'IDTUYEN', name: 'ID', hidden: true },
+                        { id: 'TuyenCap', name: 'Tuyến Cáp' },
+                        { id: 'DiemDauCuoi', name: 'Tên truyến' },
+                        { id: 'LoaiCap', name: 'Loại Cáp' },
+                        { id: 'DuToan', name: 'Dự Toán' },
+                        { id: 'SoMetTC', name: 'Số Mét TC' },
+                        { id: 'DoiKeo', name: 'Đội Kéo' },
+                        { id: 'ThoiGian', name: 'Thời gian' },
+                        {
+                            name: 'Chi tiết',
+                            formatter: (_, row) => {
+                                return gridjs.html(`<button class="view-detail-bcgs px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600" data-id="${row.cells[0].data}">
+                            <i class="fas fa-eye mr-1"></i> Chi tiết
+                        </button>`);
+                            }
+                        }
+                    ],
+                    data: processedData,
+                    search: true,
+                    sort: true,
+                    pagination: {
+                        limit: 10,
+                        summary: true
+                    },
+                    language: {
+                        search: {
+                            placeholder: 'Tìm kiếm...'
+                        },
+                        pagination: {
+                            previous: 'Trước',
+                            next: 'Sau',
+                            showing: 'Hiển thị',
+                            results: () => 'bản ghi',
+                            of: 'trên',
+                            to: 'đến'
+                        },
+                        noRecordsFound: 'Không tìm thấy dữ liệu',
+                        loading: 'Đang tải...',
+                        error: 'Đã xảy ra lỗi khi tải dữ liệu'
+                    },
+                    className: {
+                        table: 'w-full',
+                        thead: 'bg-gray-100',
+                        th: 'px-4 py-2 text-left text-sm font-medium text-gray-700',
+                        td: 'px-4 py-3 border-t border-gray-200 text-sm'
+                    }
+                }).render(document.getElementById('bcgsTable'));
+                document.getElementById('bcgsTable').addEventListener('click', function (e) {
+                    // Find closest button with the view-detail-bcgs class
+                    const button = e.target.closest('.view-detail-bcgs');
+                    if (button) {
+                        const id = button.getAttribute('data-id');
+                        showBCGSDetail(id);
+                    }
                 });
+                // Thêm sự kiện click cho nút chi tiết sau khi grid được render
+                
+            } else {
+                document.getElementById('bcgsTable').style.display = 'none';
+                document.getElementById('bcgsNoData').style.display = 'block';
+            }
+        }
 
-                // Ẩn tất cả các nội dung tab
-                document.querySelectorAll('#reportTabsContent [role="tabpanel"]').forEach(panel => {
-                    panel.classList.add('hidden');
-                    panel.classList.remove('block');
-                });
+        // Hàm hiển thị báo cáo hàn nối từ dữ liệu (với phân trang và tìm kiếm)
 
-                // Kích hoạt tab hiện tại
-                this.classList.remove('border-transparent');
-                this.classList.add('border-blue-600', 'text-blue-600', 'active');
-                this.setAttribute('aria-selected', 'true');
+        function renderBCHN(data) {
+            document.getElementById('bchnLoading').style.display = 'none';
 
-                // Hiển thị nội dung tab tương ứng
-                const tabTarget = this.getAttribute('data-tabs-target');
-                const targetPanel = document.querySelector(tabTarget);
-                if (targetPanel) {
-                    targetPanel.classList.remove('hidden');
-                    targetPanel.classList.add('block');
+            // Lưu toàn bộ dữ liệu
+            filteredData.bchn = [...data];
+
+            if (data && data.length > 0) {
+                document.getElementById('bchnTable').style.display = 'block';
+                document.getElementById('bchnNoData').style.display = 'none';
+
+                // Nếu grid đã tồn tại, hủy nó
+                if (bchnGrid) {
+                    bchnGrid.destroy();
+                }
+
+                // Khởi tạo Grid.js
+                bchnGrid = new gridjs.Grid({
+                    columns: [
+                        { id: 'ID', name: 'ID', hidden: true },
+                        { id: 'ViTri', name: 'Vị Trí' },
+                        { id: 'SoLuong', name: 'Số Lượng' },
+                        { id: 'LoaiSanPham', name: 'Loại Sản Phẩm' },
+                        { id: 'NhanSuThamGia', name: 'Nhân Sự Tham Gia' },
+                        { id: 'ThoiGian', name: 'Thời gian' },
+                        { id: 'TrangThai', name: 'Trạng Thái' },
+                        {
+                            id: 'SoTien',
+                            name: 'Số Tiền',
+                            formatter: (cell) => cell ? new Intl.NumberFormat('vi-VN').format(cell) + ' VNĐ' : '0 VNĐ'
+                        },
+                        {
+                            name: 'Chi tiết',
+                            formatter: (_, row) => {
+                                return gridjs.html(`<button class="view-detail-bchn px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600" data-id="${row.cells[0].data}">
+                            <i class="fas fa-eye mr-1"></i> Chi tiết
+                        </button>`);
+                            }
+                        }
+                    ],
+                    data: data.map(item => [
+                        item.ID || '',
+                        item.ViTri || 'N/A',
+                        item.SoLuong || '0',
+                        item.LoaiSanPham || 'N/A',
+                        item.NhanSuThamGia || 'N/A',
+                        item.ThoiGian || 'N/A',
+                        item.TrangThai || 'N/A',
+                        item.SoTien || 0
+                    ]),
+                    search: true,
+                    sort: true,
+                    pagination: {
+                        limit: 10,
+                        summary: true
+                    },
+                    language: {
+                        search: {
+                            placeholder: 'Tìm kiếm...'
+                        },
+                        pagination: {
+                            previous: 'Trước',
+                            next: 'Sau',
+                            showing: 'Hiển thị',
+                            results: () => 'bản ghi',
+                            of: 'trên',
+                            to: 'đến'
+                        },
+                        noRecordsFound: 'Không tìm thấy dữ liệu',
+                        loading: 'Đang tải...',
+                        error: 'Đã xảy ra lỗi khi tải dữ liệu'
+                    },
+                    className: {
+                        table: 'w-full',
+                        thead: 'bg-gray-100',
+                        th: 'px-4 py-2 text-left text-sm font-medium text-gray-700',
+                        td: 'px-4 py-3 border-t border-gray-200 text-sm'
+                    }
+                }).render(document.getElementById('bchnTable'));
+
+                // Thêm sự kiện click cho nút chi tiết sau khi grid được render
+                setTimeout(() => {
+                    document.querySelectorAll('.view-detail-bcgs').forEach(btn => {
+                        btn.addEventListener('click', function () {
+                            const id = this.getAttribute('data-id');
+                            showBCGSDetail(id);
+                        });
+                    });
+                }, 100);
+            } else {
+                document.getElementById('bchnTable').style.display = 'none';
+                document.getElementById('bchnNoData').style.display = 'block';
+            }
+        }
+
+        // Hàm hiển thị báo cáo hàn nối đệ từ dữ liệu (với phân trang và tìm kiếm)
+        // Hàm hiển thị báo cáo hàn nối đệ từ dữ liệu (với phân trang và tìm kiếm)
+
+        function renderBCHNDE(data) {
+            document.getElementById('bchndeLoading').style.display = 'none';
+
+            // Lưu toàn bộ dữ liệu
+            filteredData.bchnde = [...data];
+
+            if (data && data.length > 0) {
+                document.getElementById('bchndeTable').style.display = 'block';
+                document.getElementById('bchndeNoData').style.display = 'none';
+
+                // Nếu grid đã tồn tại, hủy nó
+                if (bchndeGrid) {
+                    bchndeGrid.destroy();
+                }
+
+                // Khởi tạo Grid.js
+                bchndeGrid = new gridjs.Grid({
+                    columns: [
+                        { id: 'ID', name: 'ID', hidden: true },
+                        { id: 'POP', name: 'POP' },
+                        { id: 'KhuVuc', name: 'Khu Vực' },
+                        { id: 'ViTri', name: 'Vị Trí' },
+                        { id: 'SoLuong', name: 'Số Lượng' },
+                        { id: 'LoaiSanPham', name: 'Loại Sản Phẩm' },
+                        {
+                            id: 'SoTien',
+                            name: 'Số Tiền',
+                            formatter: (cell) => cell ? new Intl.NumberFormat('vi-VN').format(cell) + ' VNĐ' : '0 VNĐ'
+                        },
+                        {
+                            name: 'Chi tiết',
+                            formatter: (_, row) => {
+                                return gridjs.html(`<button class="view-detail-bchnde px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600" data-id="${row.cells[0].data}">
+                            <i class="fas fa-eye mr-1"></i> Chi tiết
+                        </button>`);
+                            }
+                        }
+                    ],
+                    data: data.map(item => [
+                        item.ID || '',
+                        item.POP || 'N/A',
+                        item.KhuVuc || 'N/A',
+                        item.ViTri || 'N/A',
+                        item.SoLuong || '0',
+                        item.LoaiSanPham || 'N/A',
+                        item.SoTien || 0
+                    ]),
+                    search: true,
+                    sort: true,
+                    pagination: {
+                        limit: 10,
+                        summary: true
+                    },
+                    language: {
+                        search: {
+                            placeholder: 'Tìm kiếm...'
+                        },
+                        pagination: {
+                            previous: 'Trước',
+                            next: 'Sau',
+                            showing: 'Hiển thị',
+                            results: () => 'bản ghi',
+                            of: 'trên',
+                            to: 'đến'
+                        },
+                        noRecordsFound: 'Không tìm thấy dữ liệu',
+                        loading: 'Đang tải...',
+                        error: 'Đã xảy ra lỗi khi tải dữ liệu'
+                    },
+                    className: {
+                        table: 'w-full',
+                        thead: 'bg-gray-100',
+                        th: 'px-4 py-2 text-left text-sm font-medium text-gray-700',
+                        td: 'px-4 py-3 border-t border-gray-200 text-sm'
+                    }
+                }).render(document.getElementById('bchndeTable'));
+
+                // Thêm sự kiện click cho nút chi tiết sau khi grid được render
+                setTimeout(() => {
+                    document.querySelectorAll('.view-detail-bchnde').forEach(btn => {
+                        btn.addEventListener('click', function () {
+                            const id = this.getAttribute('data-id');
+                            showBCHNDEDetail(id);
+                        });
+                    });
+                }, 100);
+            } else {
+                document.getElementById('bchndeTable').style.display = 'none';
+                document.getElementById('bchndeNoData').style.display = 'block';
+            }
+        }
+        // Hàm hiển thị modal
+        function showModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalContent').innerHTML = content;
+            document.getElementById('detailModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Ngăn chặn cuộn trang
+        }
+
+        // Hàm ẩn modal
+        function hideModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Cho phép cuộn trang trở lại
+        }
+
+        // Hàm hiển thị chi tiết BCGS
+        function showBCGSDetail(id) {
+            const item = filteredData.bcgs.find(item => item.IDTUYEN === id);
+
+            if (!item) {
+                showToast('Không tìm thấy thông tin chi tiết', 'error');
+                return;
+            }
+
+            const content = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <h4 class="font-medium text-gray-700 mb-2">Thông tin cơ bản</h4>
+                <table class="min-w-full divide-y divide-gray-200 border">
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">POP</td>
+                            <td class="px-3 py-2 text-sm">${item.POP || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Khu vực</td>
+                            <td class="px-3 py-2 text-sm">${item.KhuVuc || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Tuyến cáp</td>
+                            <td class="px-3 py-2 text-sm">${item.TuyenCap || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Điểm đầu</td>
+                            <td class="px-3 py-2 text-sm">${item.DiemDau || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Điểm cuối</td>
+                            <td class="px-3 py-2 text-sm">${item.DiemCuoi || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Loại cáp</td>
+                            <td class="px-3 py-2 text-sm">${item.LoaiCap || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Mã cáp</td>
+                            <td class="px-3 py-2 text-sm">${item.MaCap || 'N/A'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h4 class="font-medium text-gray-700 mb-2">Thông tin thi công</h4>
+                <table class="min-w-full divide-y divide-gray-200 border">
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Dự toán</td>
+                            <td class="px-3 py-2 text-sm">${item.DuToan ? new Intl.NumberFormat('vi-VN').format(item.DuToan) : '0'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Địa chỉ điểm đầu</td>
+                            <td class="px-3 py-2 text-sm">${item.DiaChi_DiemDau || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Địa chỉ điểm cuối</td>
+                            <td class="px-3 py-2 text-sm">${item.DiaChi_DiemCuoi || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Số mét TC</td>
+                            <td class="px-3 py-2 text-sm">${item.SoMetTC || '0'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">TDN Đầu - Cuối</td>
+                            <td class="px-3 py-2 text-sm">${item.TDN_SoDau || '0'} - ${item.TDN_SoCuoi || '0'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">SDN Đầu - Cuối</td>
+                            <td class="px-3 py-2 text-sm">${item.SDN_SoDau || '0'} - ${item.SDN_SoCuoi || '0'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mt-4">
+            <h4 class="font-medium text-gray-700 mb-2">Thông tin đội thi công</h4>
+            <table class="min-w-full divide-y divide-gray-200 border">
+                <tbody class="divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500 w-1/4">Đội kéo</td>
+                        <td class="px-3 py-2 text-sm">${item.DoiKeo || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Ghi chú kéo</td>
+                        <td class="px-3 py-2 text-sm">${item.GhiChuKeo || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Đội hàn</td>
+                        <td class="px-3 py-2 text-sm">${item.DoiHan || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Ghi chú hàn</td>
+                        <td class="px-3 py-2 text-sm">${item.GhiChuHan || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Loại sản phẩm kéo</td>
+                        <td class="px-3 py-2 text-sm">${item.LoaiSanPhamKeo || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Thời gian</td>
+                        <td class="px-3 py-2 text-sm">${formatDate(item.ThoiGian)}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Trạng thái</td>
+                        <td class="px-3 py-2 text-sm">${item.TrangThai || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Số tiền</td>
+                        <td class="px-3 py-2 text-sm">${item.SoTien ? new Intl.NumberFormat('vi-VN').format(item.SoTien) + ' VNĐ' : '0 VNĐ'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Phụ cấp tuyến</td>
+                        <td class="px-3 py-2 text-sm">${item.PhuCapTuyen ? new Intl.NumberFormat('vi-VN').format(item.PhuCapTuyen) + ' VNĐ' : '0 VNĐ'}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+
+            showModal('Chi tiết Báo cáo Giám sát', content);
+        }
+
+        // Hàm hiển thị chi tiết BCHN
+        function showBCHNDetail(id) {
+            const item = filteredData.bchn.find(item => item.ID === id);
+
+            if (!item) {
+                showToast('Không tìm thấy thông tin chi tiết', 'error');
+                return;
+            }
+
+            const content = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <h4 class="font-medium text-gray-700 mb-2">Thông tin cơ bản</h4>
+                <table class="min-w-full divide-y divide-gray-200 border">
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">POP</td>
+                            <td class="px-3 py-2 text-sm">${item.POP || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Khu vực</td>
+                            <td class="px-3 py-2 text-sm">${item.KhuVuc || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Vị trí</td>
+                            <td class="px-3 py-2 text-sm">${item.ViTri || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Số lượng</td>
+                            <td class="px-3 py-2 text-sm">${item.SoLuong || '0'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Loại sản phẩm</td>
+                            <td class="px-3 py-2 text-sm">${item.LoaiSanPham || 'N/A'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h4 class="font-medium text-gray-700 mb-2">Thông tin thi công</h4>
+                <table class="min-w-full divide-y divide-gray-200 border">
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Ghi chú</td>
+                            <td class="px-3 py-2 text-sm">${item.GhiChu || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Nhân sự tham gia</td>
+                            <td class="px-3 py-2 text-sm">${item.NhanSuThamGia || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Thời gian</td>
+                            <td class="px-3 py-2 text-sm">${formatDate(item.ThoiGian)}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Số tiền</td>
+                            <td class="px-3 py-2 text-sm">${item.SoTien ? new Intl.NumberFormat('vi-VN').format(item.SoTien) + ' VNĐ' : '0 VNĐ'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Trạng thái</td>
+                            <td class="px-3 py-2 text-sm">${item.TrangThai || 'N/A'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      <div class="mt-4">
+            <h4 class="font-medium text-gray-700 mb-2">Thông tin phê duyệt</h4>
+            <table class="min-w-full divide-y divide-gray-200 border">
+                <tbody class="divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500 w-1/4">Người duyệt</td>
+                        <td class="px-3 py-2 text-sm">${item.NguoiDuyet || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Ghi chú duyệt</td>
+                        <td class="px-3 py-2 text-sm">${item.GhiChuDuyet || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Đơn giá</td>
+                        <td class="px-3 py-2 text-sm">${item.DonGia ? new Intl.NumberFormat('vi-VN').format(item.DonGia) + ' VNĐ' : '0 VNĐ'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Chức vụ</td>
+                        <td class="px-3 py-2 text-sm">${item.ChucVu || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Lịch sử</td>
+                        <td class="px-3 py-2 text-sm">
+                            <div class="max-h-24 overflow-y-auto">${item.LichSu || 'N/A'}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+
+            showModal('Chi tiết Báo cáo Hàn nối', content);
+        }
+
+        // Hàm hiển thị chi tiết BCHNDE
+        function showBCHNDEDetail(id) {
+            const item = filteredData.bchnde.find(item => item.ID === id);
+
+            if (!item) {
+                showToast('Không tìm thấy thông tin chi tiết', 'error');
+                return;
+            }
+
+            const content = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <h4 class="font-medium text-gray-700 mb-2">Thông tin cơ bản</h4>
+                <table class="min-w-full divide-y divide-gray-200 border">
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">POP</td>
+                            <td class="px-3 py-2 text-sm">${item.POP || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Khu vực</td>
+                            <td class="px-3 py-2 text-sm">${item.KhuVuc || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Vị trí</td>
+                            <td class="px-3 py-2 text-sm">${item.ViTri || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Số lượng</td>
+                            <td class="px-3 py-2 text-sm">${item.SoLuong || '0'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Loại sản phẩm</td>
+                            <td class="px-3 py-2 text-sm">${item.LoaiSanPham || 'N/A'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h4 class="font-medium text-gray-700 mb-2">Thông tin chi tiết</h4>
+                <table class="min-w-full divide-y divide-gray-200 border">
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Ghi chú</td>
+                            <td class="px-3 py-2 text-sm">${item.GhiChu || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Nhân sự tham gia</td>
+                            <td class="px-3 py-2 text-sm">${item.NhanSuThamGia || 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Thời gian</td>
+                            <td class="px-3 py-2 text-sm">${formatDate(item.ThoiGian)}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Số tiền</td>
+                            <td class="px-3 py-2 text-sm">${item.SoTien ? new Intl.NumberFormat('vi-VN').format(item.SoTien) + ' VNĐ' : '0 VNĐ'}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Trạng thái</td>
+                            <td class="px-3 py-2 text-sm">${item.TrangThai || 'N/A'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mt-4">
+            <h4 class="font-medium text-gray-700 mb-2">Thông tin lương</h4>
+            <table class="min-w-full divide-y divide-gray-200 border">
+                <tbody class="divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500 w-1/4">Đơn giá</td>
+                        <td class="px-3 py-2 text-sm">${item.DonGia ? new Intl.NumberFormat('vi-VN').format(item.DonGia) + ' VNĐ' : '0 VNĐ'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Chức vụ</td>
+                        <td class="px-3 py-2 text-sm">${item.ChucVu || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">ID báo cáo hàn nối</td>
+                        <td class="px-3 py-2 text-sm">${item.IDBCHN || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 bg-gray-50 text-xs font-medium text-gray-500">Bậc lương</td>
+                        <td class="px-3 py-2 text-sm">${item.BacLuong || 'N/A'}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+
+            showModal('Chi tiết Báo cáo Hàn nối Chia lương', content);
+        }
+
+        // Thêm sự kiện cho các nút đóng modal
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('closeModal').addEventListener('click', hideModal);
+            document.getElementById('closeModalBtn').addEventListener('click', hideModal);
+
+            // Đóng modal khi click ra ngoài
+            document.getElementById('detailModal').addEventListener('click', function (e) {
+                if (e.target === this) {
+                    hideModal();
+                }
+            });
+
+            // Đóng modal khi nhấn Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && !document.getElementById('detailModal').classList.contains('hidden')) {
+                    hideModal();
                 }
             });
         });
-    }
 
-    // Lấy tham số từ URL
-    function getParameterByName(name, url = window.location.href) {
-        name = name.replace(/[\[\]]/g, '\\$&');
-        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
-
-    // Thêm các sự kiện khi trang đã tải xong
-    document.addEventListener('DOMContentLoaded', function() {
         // Thiết lập tabs cho báo cáo
-        setupReportTabs();
+        function setupReportTabs() {
+            document.querySelectorAll('#reportTabs [role="tab"]').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    // Xóa active khỏi tất cả các tab
+                    document.querySelectorAll('#reportTabs [role="tab"]').forEach(t => {
+                        t.classList.remove('border-blue-600', 'text-blue-600', 'active');
+                        t.classList.add('border-transparent');
+                        t.setAttribute('aria-selected', 'false');
+                    });
 
-        // Lấy mã kế hoạch từ URL
-        const maKeHoach = getParameterByName('maKeHoach');
-        
-        if (maKeHoach) {
-            // Tải chi tiết dự án
-            loadProjectDetail(maKeHoach);
-        } else {
-            // Hiển thị thông báo lỗi nếu không có mã kế hoạch
-            document.getElementById('detailLoading').style.display = 'none';
-            const container = document.querySelector('.container');
-            container.innerHTML = `
+                    // Ẩn tất cả các nội dung tab
+                    document.querySelectorAll('#reportTabsContent [role="tabpanel"]').forEach(panel => {
+                        panel.classList.add('hidden');
+                        panel.classList.remove('block');
+                    });
+
+                    // Kích hoạt tab hiện tại
+                    this.classList.remove('border-transparent');
+                    this.classList.add('border-blue-600', 'text-blue-600', 'active');
+                    this.setAttribute('aria-selected', 'true');
+
+                    // Hiển thị nội dung tab tương ứng
+                    const tabTarget = this.getAttribute('data-tabs-target');
+                    const targetPanel = document.querySelector(tabTarget);
+                    if (targetPanel) {
+                        targetPanel.classList.remove('hidden');
+                        targetPanel.classList.add('block');
+                    }
+                });
+            });
+        }
+
+        // Lấy tham số từ URL
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Thêm các sự kiện khi trang đã tải xong
+        document.addEventListener('DOMContentLoaded', function () {
+            // Thiết lập tabs cho báo cáo
+            setupReportTabs();
+
+            // Lấy mã kế hoạch từ URL
+            const maKeHoach = getParameterByName('maKeHoach');
+
+            if (maKeHoach) {
+                // Tải chi tiết dự án
+                loadProjectDetail(maKeHoach);
+            } else {
+                // Hiển thị thông báo lỗi nếu không có mã kế hoạch
+                document.getElementById('detailLoading').style.display = 'none';
+                const container = document.querySelector('.container');
+                container.innerHTML = `
                 <div class="flex justify-between items-center mb-6">
                     <h1 class="text-3xl font-bold text-blue-800">Chi tiết Dự án</h1>
                     <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center">
@@ -1099,8 +1684,9 @@
                     </div>
                 </div>
             `;
-        }
-    });
-</script>
+            }
+        });
+    </script>
 </body>
+
 </html>
