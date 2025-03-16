@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Doanh Thu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        .skeleton {
+            animation: skeleton-loading 1s linear infinite alternate;
+        }
+
+        @keyframes skeleton-loading {
+            0% {
+                background-color: hsl(200, 20%, 80%);
+            }
+
+            100% {
+                background-color: hsl(200, 20%, 95%);
+            }
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            background-color: #f3f4f6;
+            border-radius: 9999px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-close {
+            margin-left: 0.5rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .month-btn.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .quarter-btn.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .area-btn.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class=" mx-auto p-4">
+        <header class="bg-white p-4 rounded-lg shadow mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">Dashboard Doanh Thu</h1>
+        </header>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="flex flex-col items-center justify-center h-64">
+            <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p class="mt-4 text-gray-600">Đang tải dữ liệu...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6">
+            <span id="errorMessage">Lỗi khi tải dữ liệu. Vui lòng thử lại sau.</span>
+        </div>
+
+        <!-- Main Content (Hidden until data loads) -->
+        <div id="content" class="hidden">
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- LEFT SIDEBAR - Bộ lọc -->
+                <div class="w-full md:w-1/4 bg-white p-4 rounded-lg shadow">
+                    <h2 class="text-xl font-semibold mb-4">Bộ lọc</h2>
+
+                    <!-- Tìm kiếm -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tìm kiếm</label>
+                        <div class="relative">
+                            <input type="text" id="search-input" placeholder="Tìm kiếm theo mã kế hoạch..."
+                                class="w-full pl-10 pr-4 py-2 border rounded-lg" />
+                            <svg class="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Khu vực</label>
+                        <div class="relative">
+                            <div id="selected-areas" class="mb-2 flex flex-wrap"></div>
+                            <input type="text" id="area-filter-input" placeholder="Chọn khu vực..."
+                                class="w-full p-2 border rounded-lg" />
+                            <div id="area-dropdown"
+                                class="hidden absolute z-10 mt-1 w-full bg-white border rounded-lg shadow-lg overflow-y-auto max-h-60">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nhân viên phụ trách -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nhân viên phụ trách</label>
+                        <div class="relative">
+                            <div id="selected-employees" class="mb-2 flex flex-wrap"></div>
+                            <input type="text" id="employee-filter-input" placeholder="Chọn nhân viên..."
+                                class="w-full p-2 border rounded-lg" />
+                            <div id="employee-dropdown"
+                                class="hidden absolute z-10 mt-1 w-full bg-white border rounded-lg shadow-lg overflow-y-auto max-h-60">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thời gian -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Thời gian</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="01/2024">01/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="02/2024">02/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="03/2024">03/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="04/2024">04/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="05/2024">05/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="06/2024">06/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="07/2024">07/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="08/2024">08/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="09/2024">09/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="10/2024">10/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="11/2024">11/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="12/2024">12/2024</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="01/2025">01/2025</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="02/2025">02/2025</button>
+                            <button class="month-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-month="03/2025">03/2025</button>
+                        </div>
+                    </div>
+
+                    <!-- Quý -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Quý</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button class="quarter-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-quarter="Q1/2024">Q1/2024</button>
+                            <button class="quarter-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-quarter="Q2/2024">Q2/2024</button>
+                            <button class="quarter-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-quarter="Q3/2024">Q3/2024</button>
+                            <button class="quarter-btn px-3 py-2 text-sm border rounded-lg hover:bg-gray-100"
+                                data-quarter="Q4/2024">Q4/2024</button>
+                        </div>
+                    </div>
+
+                    <!-- Nút áp dụng bộ lọc và xóa bộ lọc -->
+                    <div class="grid grid-cols-1 gap-4">
+                        <button id="apply-filter"
+                            class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex justify-center items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Áp dụng bộ lọc
+                        </button>
+                        <button id="clear-filter"
+                            class="w-full px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 flex justify-center items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Xóa bộ lọc
+                        </button>
+                        <button id="export-excel"
+                            class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 flex justify-center items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586L7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Xuất Excel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MAIN CONTENT AREA -->
+                <div class="w-full md:w-3/4 space-y-6">
+                    <!-- Tổng quan cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="text-lg font-medium text-gray-700">Tổng doanh thu nội suy</h3>
+                            <p id="total-revenue" class="text-2xl font-bold text-green-600">0 đ</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="text-lg font-medium text-gray-700">Tổng Doanh thu hàn nội suy nối</h3>
+                            <p id="total-han" class="text-2xl font-bold text-blue-600">0 đ</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="text-lg font-medium text-gray-700">Tổng Doanh thu kéo nội suy cáp</h3>
+                            <p id="total-keo" class="text-2xl font-bold text-purple-600">0 đ</p>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Biểu đồ doanh thu theo khu vực -->
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Doanh thu theo khu vực</h3>
+                            <div class="h-80">
+                                <canvas id="area-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Biểu đồ doanh thu theo loại sản phẩm -->
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Doanh thu theo loại</h3>
+                            <div class="h-80">
+                                <canvas id="type-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bảng dữ liệu -->
+                    <div class="bg-white p-4 rounded-lg shadow overflow-x-auto">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Bảng tổng hợp theo khu vực và nhân viên</h3>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Mã kế
+                                        hoạch</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">POP</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Khu vực
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nhân
+                                        viên phụ trách</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Doanh
+                                        thu phụ trách</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Doanh
+                                        thu hàn nội suy nối</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Doanh
+                                        thu kéo nội suy cáp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data-table-body" class="bg-white divide-y divide-gray-200">
+                                <!-- Dữ liệu sẽ được điền bởi JavaScript -->
+                            </tbody>
+                        </table>
+
+                        <!-- Phân trang -->
+                        <div class="mt-4 flex items-center justify-between">
+                            <div>
+                                <span id="pagination-info" class="text-sm text-gray-700">
+                                    Hiển thị 1 đến 10 trong tổng số 0 kết quả
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button id="prev-page" disabled class="px-3 py-1 border rounded-md disabled:opacity-50">
+                                    Trước
+                                </button>
+                                <span id="page-info" class="text-sm text-gray-700">
+                                    Trang 1 / 1
+                                </span>
+                                <button id="next-page" disabled class="px-3 py-1 border rounded-md disabled:opacity-50">
+                                    Sau
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cấu hình và biến toàn cục
+        const ITEMS_PER_PAGE = 10;
+        let currentPage = 1;
+        let allData = [];
+        let filteredData = [];
+        let selectedAreas = [];
+        let selectedEmployees = [];
+        let selectedMonths = [];
+        let areaChart = null;
+        let typeChart = null;
+
+        // Format tiền tệ
+        const formatCurrency = (value) => {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'decimal',
+                maximumFractionDigits: 0
+            }).format(value) + " đ";
+        };
+
+        // Format date from ISO to display format
+        const formatDate = (dateString) => {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('vi-VN');
+        };
+
+        // Chuyển định dạng tháng/năm thành ISO date
+        const convertMonthToISODate = (monthYear) => {
+            const [month, year] = monthYear.split('/');
+            return `${year}-${month.padStart(2, '0')}-01`;
+        };
+
+        // Lấy dữ liệu từ API
+        async function fetchData(filters = {}) {
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('content').classList.add('hidden');
+            document.getElementById('error').classList.add('hidden');
+
+            try {
+                // Xây dựng query parameters
+                const params = new URLSearchParams();
+
+                if (filters.khuVuc && filters.khuVuc.length) {
+                    filters.khuVuc.forEach(area => params.append('khuVuc', area));
+                }
+
+                if (filters.NhanVienDuAnPhuTrach && filters.NhanVienDuAnPhuTrach.length) {
+                    filters.NhanVienDuAnPhuTrach.forEach(emp => params.append('NhanVienDuAnPhuTrach', emp));
+                }
+
+                if (filters.tuNgay) params.append('tuNgay', filters.tuNgay);
+                if (filters.denNgay) params.append('denNgay', filters.denNgay);
+                if (filters.maKeHoach) params.append('maKeHoach', filters.maKeHoach);
+
+                const url = `https://nzldtapi.vercel.app/api/doanhthu${params.toString() ? '?' + params.toString() : ''}`;
+
+                const response = await axios.get(url, {
+                    headers: {
+                        'Authorization': 'Bearer AAAA'
+                    }
+                });
+
+                if (response.data && response.data.success) {
+                    allData = response.data.data;
+                    filteredData = [...allData];
+
+                    // Cập nhật UI
+                    processDataForDisplay(response.data);
+
+                    document.getElementById('content').classList.remove('hidden');
+                } else {
+                    throw new Error('Dữ liệu không hợp lệ');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('errorMessage').textContent = 'Lỗi khi tải dữ liệu: ' + (error.message || 'Vui lòng thử lại sau');
+                document.getElementById('error').classList.remove('hidden');
+            } finally {
+                document.getElementById('loading').classList.add('hidden');
+            }
+        }
+
+        // Xử lý dữ liệu để hiển thị
+        function processDataForDisplay(data) {
+            // Tính tổng doanh thu theo loại
+            let totalHan = 0;
+            let totalKeo = 0;
+
+            allData.forEach(item => {
+                if (item.Loai === 'Hàn nối') {
+                    totalHan += (item.DOANH_THU || 0);
+                } else if (item.Loai === 'Kéo cáp') {
+                    totalKeo += (item.DOANH_THU || 0);
+                }
+            });
+
+            // Cập nhật các thẻ tổng quan
+            document.getElementById('total-revenue').textContent = formatCurrency(data.summary.totalDoanhThu || 0);
+            document.getElementById('total-han').textContent = formatCurrency(totalHan);
+            document.getElementById('total-keo').textContent = formatCurrency(totalKeo);
+
+            // Cập nhật danh sách khu vực cho dropdown
+            populateAreaDropdown();
+
+            // Cập nhật danh sách nhân viên cho dropdown
+            populateEmployeeDropdown();
+
+            // Chuẩn bị dữ liệu cho bảng và biểu đồ
+            prepareDataForDisplay();
+
+            // Cập nhật biểu đồ
+            updateCharts();
+
+            // Cập nhật bảng dữ liệu
+            renderTable();
+        }
+
+        // Điền danh sách khu vực vào dropdown
+        function populateAreaDropdown() {
+            const uniqueAreas = [...new Set(allData.map(item => item.KhuVuc))].filter(Boolean).sort();
+            const dropdown = document.getElementById('area-dropdown');
+
+            dropdown.innerHTML = '';
+
+            uniqueAreas.forEach(area => {
+                const item = document.createElement('div');
+                item.className = 'p-2 hover:bg-gray-100 cursor-pointer';
+                item.textContent = area;
+                item.onclick = () => selectArea(area);
+                dropdown.appendChild(item);
+            });
+        }
+
+        // Điền danh sách nhân viên vào dropdown
+        function populateEmployeeDropdown() {
+            // Lấy danh sách nhân viên từ dữ liệu
+            const employees = new Set();
+
+            allData.forEach(item => {
+                if (item.NhanVienDuAnPhuTrach) {
+                    // Xử lý trường hợp có nhiều nhân viên phụ trách
+                    if (item.NhanVienDuAnPhuTrach.includes(',')) {
+                        item.NhanVienDuAnPhuTrach.split(',').forEach(emp => {
+                            employees.add(emp.trim());
+                        });
+                    } else {
+                        employees.add(item.NhanVienDuAnPhuTrach.trim());
+                    }
+                }
+            });
+
+            const uniqueEmployees = [...employees].sort();
+            const dropdown = document.getElementById('employee-dropdown');
+
+            dropdown.innerHTML = '';
+
+            uniqueEmployees.forEach(employee => {
+                const item = document.createElement('div');
+                item.className = 'p-2 hover:bg-gray-100 cursor-pointer';
+                item.textContent = employee;
+                item.onclick = () => selectEmployee(employee);
+                dropdown.appendChild(item);
+            });
+        }
+
+        // Thêm khu vực được chọn
+        function selectArea(area) {
+            if (!selectedAreas.includes(area)) {
+                selectedAreas.push(area);
+                updateSelectedAreasDisplay();
+            }
+            document.getElementById('area-filter-input').value = '';
+            document.getElementById('area-dropdown').classList.add('hidden');
+        }
+
+        // Thêm nhân viên được chọn
+        function selectEmployee(employee) {
+            if (!selectedEmployees.includes(employee)) {
+                selectedEmployees.push(employee);
+                updateSelectedEmployeesDisplay();
+            }
+            document.getElementById('employee-filter-input').value = '';
+            document.getElementById('employee-dropdown').classList.add('hidden');
+        }
+
+        // Cập nhật hiển thị khu vực đã chọn
+        function updateSelectedAreasDisplay() {
+            const container = document.getElementById('selected-areas');
+            container.innerHTML = '';
+
+            selectedAreas.forEach(area => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.innerHTML = `${area} <span class="tag-close" onclick="removeArea('${area}')">&times;</span>`;
+                container.appendChild(tag);
+            });
+        }
+
+        // Cập nhật hiển thị nhân viên đã chọn
+        function updateSelectedEmployeesDisplay() {
+            const container = document.getElementById('selected-employees');
+            container.innerHTML = '';
+
+            selectedEmployees.forEach(employee => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.innerHTML = `${employee} <span class="tag-close" onclick="removeEmployee('${employee}')">&times;</span>`;
+                container.appendChild(tag);
+            });
+        }
+
+        // Xóa khu vực khỏi danh sách đã chọn
+        function removeArea(area) {
+            selectedAreas = selectedAreas.filter(a => a !== area);
+            updateSelectedAreasDisplay();
+        }
+
+        // Xóa nhân viên khỏi danh sách đã chọn
+        function removeEmployee(employee) {
+            selectedEmployees = selectedEmployees.filter(e => e !== employee);
+            updateSelectedEmployeesDisplay();
+        }
+
+        // Chuẩn bị dữ liệu cho hiển thị
+        function prepareDataForDisplay() {
+            // Áp dụng bộ lọc tìm kiếm
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+            filteredData = allData.filter(item => {
+                // Lọc theo từ khóa tìm kiếm
+                const matchesSearch = !searchTerm ||
+                    (item.MaKeHoach && item.MaKeHoach.toLowerCase().includes(searchTerm)) ||
+                    (item.POP && item.POP.toLowerCase().includes(searchTerm)) ||
+                    (item.KhuVuc && item.KhuVuc.toLowerCase().includes(searchTerm));
+
+                // Lọc theo khu vực
+                const matchesArea = selectedAreas.length === 0 || selectedAreas.includes(item.KhuVuc);
+
+                // Lọc theo nhân viên
+                let matchesEmployee = true;
+                if (selectedEmployees.length > 0) {
+                    matchesEmployee = false;
+                    if (item.NhanVienDuAnPhuTrach) {
+                        const itemEmployees = item.NhanVienDuAnPhuTrach.includes(',')
+                            ? item.NhanVienDuAnPhuTrach.split(',').map(e => e.trim())
+                            : [item.NhanVienDuAnPhuTrach.trim()];
+
+                        // Nếu bất kỳ nhân viên nào đã chọn nằm trong danh sách nhân viên của mục
+                        for (const emp of selectedEmployees) {
+                            if (itemEmployees.includes(emp)) {
+                                matchesEmployee = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                // Lọc theo tháng
+                // Lọc theo tháng
+                let matchesMonth = true;
+                if (selectedMonths.length > 0) {
+                    matchesMonth = false;
+                    const itemDate = new Date(item.ThoiGian);
+                    const itemMonthYear = `${(itemDate.getMonth() + 1).toString().padStart(2, '0')}/${itemDate.getFullYear()}`;
+                    matchesMonth = selectedMonths.includes(itemMonthYear);
+                }
+
+                return matchesSearch && matchesArea && matchesEmployee && matchesMonth;
+            });
+        }
+
+        // Tạo dữ liệu tổng hợp cho bảng và biểu đồ
+        function prepareSummaryData() {
+            // Tổng hợp theo khu vực, mã kế hoạch và nhân viên
+            const summaryMap = new Map();
+
+            filteredData.forEach(item => {
+                // Xử lý nhân viên - có thể có nhiều nhân viên phụ trách một dự án
+                let employees = ['N/A'];
+                if (item.NhanVienDuAnPhuTrach) {
+                    if (item.NhanVienDuAnPhuTrach.includes(',')) {
+                        employees = item.NhanVienDuAnPhuTrach.split(',').map(e => e.trim()).filter(Boolean);
+                    } else {
+                        employees = [item.NhanVienDuAnPhuTrach.trim()];
+                    }
+                }
+
+                // Tính doanh thu phân chia cho mỗi nhân viên (chia đều)
+                const revenuePerEmployee = (item.DOANH_THU || 0) / employees.length;
+
+                employees.forEach(employee => {
+                    const key = `${item.KhuVuc || 'N/A'}-${item.MaKeHoach || 'N/A'}-${item.POP || 'N/A'}-${employee}`;
+
+                    if (!summaryMap.has(key)) {
+                        summaryMap.set(key, {
+                            'Mã kế hoạch': item.MaKeHoach || 'N/A',
+                            'POP': item.POP || 'N/A',
+                            'Khu vực': item.KhuVuc || 'N/A',
+                            'Nhân viên phụ trách': employee,
+                            'Doanh thu phụ trách': 0,
+                            'Doanh thu hàn nội suy nối': 0,
+                            'Doanh thu kéo nội suy cáp': 0
+                        });
+                    }
+
+                    const summary = summaryMap.get(key);
+                    summary['Doanh thu phụ trách'] += revenuePerEmployee;
+
+                    if (item.Loai === 'Hàn nối') {
+                        summary['Doanh thu hàn nội suy nối'] += revenuePerEmployee;
+                    } else if (item.Loai === 'Kéo cáp') {
+                        summary['Doanh thu kéo nội suy cáp'] += revenuePerEmployee;
+                    }
+                });
+            });
+
+            return Array.from(summaryMap.values()).sort((a, b) => b['Doanh thu phụ trách'] - a['Doanh thu phụ trách']);
+        }
+
+        // Cập nhật biểu đồ
+        function updateCharts() {
+            // Dữ liệu cho biểu đồ theo khu vực
+            const areaSummary = {};
+            filteredData.forEach(item => {
+                const area = item.KhuVuc || 'N/A';
+                if (!areaSummary[area]) {
+                    areaSummary[area] = 0;
+                }
+                areaSummary[area] += (item.DOANH_THU || 0);
+            });
+
+            // Dữ liệu cho biểu đồ theo loại
+            const typeSummary = {
+                'Hàn nối': 0,
+                'Kéo cáp': 0
+            };
+
+            filteredData.forEach(item => {
+                const type = item.Loai || 'N/A';
+                if (type === 'Hàn nối' || type === 'Kéo cáp') {
+                    typeSummary[type] += (item.DOANH_THU || 0);
+                }
+            });
+
+            // Biểu đồ doanh thu theo khu vực
+            const areaCanvas = document.getElementById('area-chart');
+            const areaCtx = areaCanvas.getContext('2d');
+
+            // Xóa biểu đồ cũ nếu có
+            if (areaChart) {
+                areaChart.destroy();
+            }
+
+            // Chuẩn bị dữ liệu cho biểu đồ khu vực
+            const areaLabels = Object.keys(areaSummary);
+            const areaValues = areaLabels.map(key => areaSummary[key]);
+
+            areaChart = new Chart(areaCtx, {
+                type: 'bar',
+                data: {
+                    labels: areaLabels,
+                    datasets: [{
+                        label: 'Doanh thu theo khu vực',
+                        data: areaValues,
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function (value) {
+                                    return formatCurrency(value);
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return formatCurrency(context.raw);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Biểu đồ doanh thu theo loại
+            const typeCanvas = document.getElementById('type-chart');
+            const typeCtx = typeCanvas.getContext('2d');
+
+            // Xóa biểu đồ cũ nếu có
+            if (typeChart) {
+                typeChart.destroy();
+            }
+
+            typeChart = new Chart(typeCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Hàn nối', 'Kéo cáp'],
+                    datasets: [{
+                        data: [typeSummary['Hàn nối'], typeSummary['Kéo cáp']],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(153, 102, 255, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const label = context.label || '';
+                                    const value = formatCurrency(context.raw);
+                                    const total = typeSummary['Hàn nối'] + typeSummary['Kéo cáp'];
+                                    const percentage = total > 0 ? ((context.raw / total) * 100).toFixed(1) : 0;
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render bảng dữ liệu
+        function renderTable() {
+            const tableBody = document.getElementById('data-table-body');
+            tableBody.innerHTML = '';
+
+            const summaryData = prepareSummaryData();
+            const totalPages = Math.ceil(summaryData.length / ITEMS_PER_PAGE);
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = Math.min(start + ITEMS_PER_PAGE, summaryData.length);
+
+            const paginatedData = summaryData.slice(start, end);
+
+            if (paginatedData.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = `
+                    <td colspan="7" class="px-6 py-4 text-center text-gray-500">Không có dữ liệu</td>
+                `;
+                tableBody.appendChild(emptyRow);
+            } else {
+                paginatedData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-gray-50';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item['Mã kế hoạch']}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item['POP']}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item['Khu vực']}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item['Nhân viên phụ trách']}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formatCurrency(item['Doanh thu phụ trách'])}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formatCurrency(item['Doanh thu hàn nội suy nối'])}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formatCurrency(item['Doanh thu kéo nội suy cáp'])}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // Cập nhật thông tin phân trang
+            document.getElementById('pagination-info').textContent =
+                `Hiển thị ${start + 1} đến ${end} trong tổng số ${summaryData.length} kết quả`;
+
+            document.getElementById('page-info').textContent = `Trang ${currentPage} / ${totalPages || 1}`;
+
+            document.getElementById('prev-page').disabled = currentPage <= 1;
+            document.getElementById('next-page').disabled = currentPage >= totalPages;
+        }
+
+        // Xuất dữ liệu ra Excel
+        function exportToExcel() {
+            // Chuẩn bị dữ liệu cho các sheet
+            const summaryData = prepareSummaryData();
+
+            // Sheet 1: Tổng hợp theo khu vực, mã kế hoạch và nhân viên
+            const exportData = summaryData.map(item => ({
+                'Mã kế hoạch': item['Mã kế hoạch'],
+                'POP': item['POP'],
+                'Khu vực': item['Khu vực'],
+                'Nhân viên phụ trách': item['Nhân viên phụ trách'],
+                'Doanh thu phụ trách': item['Doanh thu phụ trách'],
+                'Doanh thu hàn nội suy nối': item['Doanh thu hàn nội suy nối'],
+                'Doanh thu kéo nội suy cáp': item['Doanh thu kéo nội suy cáp']
+            }));
+
+            // Sheet 2: Dữ liệu chi tiết
+            const detailData = filteredData.map(item => ({
+                'Thời gian': formatDate(item.ThoiGian),
+                'Mã kế hoạch': item.MaKeHoach || '',
+                'POP': item.POP || '',
+                'Khu vực': item.KhuVuc || '',
+                'Nhân viên': item.NhanVienDuAnPhuTrach || '',
+                'Số quyền HSHC': item.SoQuyenHSHC || '',
+                'Loại sản phẩm': item.LoaiSanPham || '',
+                'Loại': item.Loai || '',
+                'Số lượng': item.SoLuong || 0,
+                'Đơn giá': item.DonGia || 0,
+                'Thành tiền': item.ThanhTien || 0,
+                'Doanh thu': item.DOANH_THU || 0
+            }));
+
+            // Tạo workbook và các sheet
+            const wb = XLSX.utils.book_new();
+
+            const ws1 = XLSX.utils.json_to_sheet(exportData);
+            const ws2 = XLSX.utils.json_to_sheet(detailData);
+
+            // Thêm các sheet vào workbook
+            XLSX.utils.book_append_sheet(wb, ws1, "Tổng hợp");
+            XLSX.utils.book_append_sheet(wb, ws2, "Dữ liệu chi tiết");
+
+            // Tạo tên file với ngày hiện tại
+            const fileName = `Bao_cao_doanh_thu_${new Date().toISOString().split('T')[0]}.xlsx`;
+
+            // Xuất file
+            XLSX.writeFile(wb, fileName);
+        }
+
+        // Xử lý sự kiện
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lấy dữ liệu khi trang tải xong
+            fetchData();
+
+            // Sự kiện tìm kiếm
+            document.getElementById('search-input').addEventListener('input', () => {
+                prepareDataForDisplay();
+                updateCharts();
+                renderTable();
+            });
+
+            // Xử lý dropdown khu vực
+            const areaFilter = document.getElementById('area-filter-input');
+            const areaDropdown = document.getElementById('area-dropdown');
+
+            areaFilter.addEventListener('focus', () => {
+                areaDropdown.classList.remove('hidden');
+            });
+
+            areaFilter.addEventListener('input', (e) => {
+                const value = e.target.value.toLowerCase();
+                const items = areaDropdown.getElementsByTagName('div');
+
+                for (let item of items) {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(value)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+
+                areaDropdown.classList.remove('hidden');
+            });
+
+            // Xử lý dropdown nhân viên
+            const employeeFilter = document.getElementById('employee-filter-input');
+            const employeeDropdown = document.getElementById('employee-dropdown');
+
+            employeeFilter.addEventListener('focus', () => {
+                employeeDropdown.classList.remove('hidden');
+            });
+
+            employeeFilter.addEventListener('input', (e) => {
+                const value = e.target.value.toLowerCase();
+                const items = employeeDropdown.getElementsByTagName('div');
+
+                for (let item of items) {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(value)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+
+                employeeDropdown.classList.remove('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!areaFilter.contains(e.target) && !areaDropdown.contains(e.target)) {
+                    areaDropdown.classList.add('hidden');
+                }
+
+                if (!employeeFilter.contains(e.target) && !employeeDropdown.contains(e.target)) {
+                    employeeDropdown.classList.add('hidden');
+                }
+            });
+
+            // Xử lý khi chọn nút tháng
+            document.querySelectorAll('.month-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const month = btn.getAttribute('data-month');
+                    btn.classList.toggle('active');
+
+                    if (selectedMonths.includes(month)) {
+                        selectedMonths = selectedMonths.filter(m => m !== month);
+                    } else {
+                        selectedMonths.push(month);
+                    }
+                });
+            });
+
+            // Xử lý khi chọn nút quý
+            document.querySelectorAll('.quarter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const quarter = btn.getAttribute('data-quarter');
+                    btn.classList.toggle('active');
+
+                    let months = [];
+                    if (quarter === 'Q1/2024') {
+                        months = ['01/2024', '02/2024', '03/2024'];
+                    } else if (quarter === 'Q2/2024') {
+                        months = ['04/2024', '05/2024', '06/2024'];
+                    } else if (quarter === 'Q3/2024') {
+                        months = ['07/2024', '08/2024', '09/2024'];
+                    } else if (quarter === 'Q4/2024') {
+                        months = ['10/2024', '11/2024', '12/2024'];
+                    }
+
+                    // Toggle tất cả các tháng trong quý
+                    months.forEach(month => {
+                        const monthBtn = document.querySelector(`.month-btn[data-month="${month}"]`);
+
+                        if (btn.classList.contains('active')) {
+                            // Thêm vào nếu chưa có
+                            if (!selectedMonths.includes(month)) {
+                                selectedMonths.push(month);
+                                monthBtn.classList.add('active');
+                            }
+                        } else {
+                            // Xóa nếu đã có
+                            selectedMonths = selectedMonths.filter(m => m !== month);
+                            monthBtn.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // Sự kiện phân trang
+            document.getElementById('prev-page').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
+
+            document.getElementById('next-page').addEventListener('click', () => {
+                const summaryData = prepareSummaryData();
+                const totalPages = Math.ceil(summaryData.length / ITEMS_PER_PAGE);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                }
+            });
+
+            // Sự kiện áp dụng bộ lọc
+            document.getElementById('apply-filter').addEventListener('click', () => {
+                const searchTerm = document.getElementById('search-input').value;
+
+                // Xây dựng đối tượng bộ lọc
+                const filters = {};
+
+                if (selectedAreas.length > 0) {
+                    filters.khuVuc = selectedAreas;
+                }
+
+                if (selectedEmployees.length > 0) {
+                    filters.NhanVienDuAnPhuTrach = selectedEmployees;
+                }
+
+                if (selectedMonths.length > 0) {
+                    // Lấy tháng đầu tiên và cuối cùng cho khoảng thời gian
+                    const sortedMonths = [...selectedMonths].sort();
+                    const firstMonth = sortedMonths[0];
+                    const lastMonth = sortedMonths[sortedMonths.length - 1];
+
+                    filters.tuNgay = convertMonthToISODate(firstMonth);
+
+                    // Tháng cuối + 1 tháng - 1 ngày để lấy ngày cuối của tháng
+                    const [lastMonthNum, lastYear] = lastMonth.split('/');
+                    const nextMonth = parseInt(lastMonthNum) === 12 ? '01' : (parseInt(lastMonthNum) + 1).toString().padStart(2, '0');
+                    const nextYear = parseInt(lastMonthNum) === 12 ? parseInt(lastYear) + 1 : lastYear;
+
+                    const lastDay = new Date(nextYear, parseInt(nextMonth) - 1, 0);
+                    filters.denNgay = `${nextYear}-${lastMonthNum}-${lastDay.getDate()}`;
+                }
+
+                if (searchTerm) {
+                    filters.maKeHoach = searchTerm;
+                }
+
+                // Gọi API với bộ lọc
+                fetchData(filters);
+            });
+
+            // Sự kiện xóa bộ lọc
+            document.getElementById('clear-filter').addEventListener('click', () => {
+                // Xóa tất cả các lựa chọn
+                selectedAreas = [];
+                selectedEmployees = [];
+                selectedMonths = [];
+                document.getElementById('search-input').value = '';
+                document.getElementById('selected-areas').innerHTML = '';
+                document.getElementById('selected-employees').innerHTML = '';
+
+                // Xóa các nút active
+                document.querySelectorAll('.month-btn.active').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                document.querySelectorAll('.quarter-btn.active').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // Tải lại dữ liệu không có lọc
+                fetchData();
+            });
+
+            // Sự kiện xuất Excel
+            document.getElementById('export-excel').addEventListener('click', exportToExcel);
+        });
+
+        // Hàm tiện ích toàn cục cho việc xóa khu vực và nhân viên
+        window.removeArea = removeArea;
+        window.removeEmployee = removeEmployee;
+    </script>
+</body>
+
+</html>
